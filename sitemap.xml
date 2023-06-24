@@ -2,22 +2,22 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
 	
 	<url>
-		<loc>https://domzlab.com/about/</loc>
+		<loc>https://domzlab.com/domz-lab-blog/about/</loc>
 		<lastmod>2023-06-24</lastmod>
 	</url>
 	
 	<url>
-		<loc>https://domzlab.com/blog/</loc>
+		<loc>https://domzlab.com/domz-lab-blog/blog/</loc>
 		<lastmod>2023-06-24</lastmod>
 	</url>
 	
 	<url>
-		<loc>https://domzlab.com/</loc>
+		<loc>https://domzlab.com/domz-lab-blog/</loc>
 		<lastmod>2023-06-24</lastmod>
 	</url>
 	
 	<url>
-		<loc>https://domzlab.com/tags/</loc>
+		<loc>https://domzlab.com/domz-lab-blog/tags/</loc>
 		<lastmod>2023-06-24</lastmod>
 	</url>
 </urlset>

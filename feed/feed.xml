@@ -2,9 +2,9 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:base="en">
 	<title>domzlab</title>
 	<subtitle>A blog where I write about things that I am learning.</subtitle>
-	<link href="https://domzlab.com/feed/feed.xml" rel="self"/>
-	<link href="https://domzlab.com/"/>
-	<updated>2023-06-24T18:15:45Z</updated>
+	<link href="https://domzlab.com/domz-lab-blog/feed/feed.xml" rel="self"/>
+	<link href="https://domzlab.com/domz-lab-blog/"/>
+	<updated>2023-06-24T18:51:00Z</updated>
 	<id>https://domzlab.com/</id>
 	<author>
 		<name>Dominic Manthoko</name>

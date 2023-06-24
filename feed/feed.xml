@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:base="en">
+	<title>domzlab</title>
+	<subtitle>A blog where I write about things that I am learning.</subtitle>
+	<link href="https://domzlab.com/feed/feed.xml" rel="self"/>
+	<link href="https://domzlab.com/"/>
+	<updated>2023-06-24T17:56:58Z</updated>
+	<id>https://domzlab.com/</id>
+	<author>
+		<name>Dominic Manthoko</name>
+		<email>domzlab523@gmail.com</email>
+	</author>
+</feed>

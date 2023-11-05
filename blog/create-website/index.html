@@ -1,0 +1,599 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Create 11ty static website from template</title>
+		<meta name="description" content="This is a post describing how I started this website">
+		<link rel="alternate" href="/domz-lab-blog/feed/feed.xml" type="application/atom+xml" title="domzlab">
+		<link rel="alternate" href="/domz-lab-blog/feed/feed.json" type="application/json" title="domzlab">
+		
+		<style>/**
+ * okaidia theme for JavaScript, CSS and HTML
+ * Loosely based on Monokai textmate theme by http://www.monokai.nl/
+ * @author ocodia
+ */
+
+code[class*="language-"],
+pre[class*="language-"] {
+	color: #f8f8f2;
+	background: none;
+	text-shadow: 0 1px rgba(0, 0, 0, 0.3);
+	font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+	font-size: 1em;
+	text-align: left;
+	white-space: pre;
+	word-spacing: normal;
+	word-break: normal;
+	word-wrap: normal;
+	line-height: 1.5;
+
+	-moz-tab-size: 4;
+	-o-tab-size: 4;
+	tab-size: 4;
+
+	-webkit-hyphens: none;
+	-moz-hyphens: none;
+	-ms-hyphens: none;
+	hyphens: none;
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+	padding: 1em;
+	margin: .5em 0;
+	overflow: auto;
+	border-radius: 0.3em;
+}
+
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {
+	background: #272822;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+	padding: .1em;
+	border-radius: .3em;
+	white-space: normal;
+}
+
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+	color: #8292a2;
+}
+
+.token.punctuation {
+	color: #f8f8f2;
+}
+
+.token.namespace {
+	opacity: .7;
+}
+
+.token.property,
+.token.tag,
+.token.constant,
+.token.symbol,
+.token.deleted {
+	color: #f92672;
+}
+
+.token.boolean,
+.token.number {
+	color: #ae81ff;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+	color: #a6e22e;
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string,
+.token.variable {
+	color: #f8f8f2;
+}
+
+.token.atrule,
+.token.attr-value,
+.token.function,
+.token.class-name {
+	color: #e6db74;
+}
+
+.token.keyword {
+	color: #66d9ef;
+}
+
+.token.regex,
+.token.important {
+	color: #fd971f;
+}
+
+.token.important,
+.token.bold {
+	font-weight: bold;
+}
+.token.italic {
+	font-style: italic;
+}
+
+.token.entity {
+	cursor: help;
+}
+/*
+ * New diff- syntax
+ */
+
+pre[class*="language-diff-"] {
+	--eleventy-code-padding: 1.25em;
+	padding-left: var(--eleventy-code-padding);
+	padding-right: var(--eleventy-code-padding);
+}
+.token.deleted {
+	background-color: hsl(0, 51%, 37%);
+	color: inherit;
+}
+.token.inserted {
+	background-color: hsl(126, 31%, 39%);
+	color: inherit;
+}
+
+/* Make the + and - characters unselectable for copy/paste */
+.token.prefix.unchanged,
+.token.prefix.inserted,
+.token.prefix.deleted {
+	-webkit-user-select: none;
+	user-select: none;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding-top: 2px;
+	padding-bottom: 2px;
+}
+.token.prefix.inserted,
+.token.prefix.deleted {
+	width: var(--eleventy-code-padding);
+	background-color: rgba(0,0,0,.2);
+}
+
+/* Optional: full-width background color */
+.token.inserted:not(.prefix),
+.token.deleted:not(.prefix) {
+	display: block;
+	margin-left: calc(-1 * var(--eleventy-code-padding));
+	margin-right: calc(-1 * var(--eleventy-code-padding));
+	text-decoration: none; /* override del, ins, mark defaults */
+	color: inherit; /* override del, ins, mark defaults */
+}
+* { box-sizing: border-box; }
+/* Defaults */
+:root {
+	--font-family: -apple-system, system-ui, sans-serif;
+	--font-family-monospace: Consolas, Menlo, Monaco, Andale Mono WT, Andale Mono, Lucida Console, Lucida Sans Typewriter, DejaVu Sans Mono, Bitstream Vera Sans Mono, Liberation Mono, Nimbus Mono L, Courier New, Courier, monospace;
+}
+
+/* Theme colors */
+:root {
+	--color-gray-20: #e0e0e0;
+	--color-gray-50: #C0C0C0;
+	--color-gray-90: #333;
+
+	--background-color: #CCC9DC;
+
+	--text-color: var(--color-gray-90);
+	--text-color-link: #082840;
+	--text-color-link-active: #5f2b48;
+	--text-color-link-visited: #17050F;
+
+	--syntax-tab-size: 2;
+}
+
+/* @media (prefers-color-scheme: dark) {
+	:root {
+		--color-gray-20: #e0e0e0;
+		--color-gray-50: #C0C0C0;
+		--color-gray-90: #dad8d8;
+
+		/* --text-color is assigned to --color-gray-_ above */
+--text-color-link: #1493fb;
+--text-color-link-active: #6969f7;
+--text-color-link-visited: #a6a6f8;
+
+--background-color: #15202b;
+--background-color: #CCC9DC;
+}
+}
+
+*/
+
+/* Global stylesheet */
+* {
+	box-sizing: border-box;
+}
+
+html,
+body {
+	padding: 0;
+	margin: 0 auto;
+	font-family: var(--font-family);
+	color: var(--text-color);
+	background-color: var(--background-color);
+}
+
+html {
+	overflow-y: scroll;
+}
+
+body {
+	max-width: 60em;
+}
+
+/* https://www.a11yproject.com/posts/how-to-hide-content/ */
+.visually-hidden {
+	clip: rect(0 0 0 0);
+	clip-path: inset(50%);
+	height: 1px;
+	overflow: hidden;
+	position: absolute;
+	white-space: nowrap;
+	width: 1px;
+}
+
+p:last-child {
+	margin-bottom: 0;
+}
+
+p {
+	line-height: 1.5;
+}
+
+li {
+	line-height: 1.5;
+}
+
+a[href] {
+	color: var(--text-color-link);
+}
+
+a[href]:visited {
+	color: var(--text-color-link-visited);
+}
+
+a[href]:hover,
+a[href]:active {
+	color: var(--text-color-link-active);
+}
+
+main {
+	padding: 1rem;
+}
+
+main :first-child {
+	margin-top: 0;
+}
+
+header {
+	border-bottom: 1px dashed var(--color-gray-90);
+}
+
+header:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
+.links-nextprev {
+	list-style: none;
+	border-top: 1px dashed var(--color-gray-20);
+	padding: 1em 0;
+}
+
+table {
+	margin: 1em 0;
+}
+
+table td,
+table th {
+	padding-right: 1em;
+}
+
+pre,
+code {
+	font-family: var(--font-family-monospace);
+}
+
+pre:not([class*="language-"]) {
+	margin: .5em 0;
+	line-height: 1.375;
+	/* 22px /16 */
+	-moz-tab-size: var(--syntax-tab-size);
+	-o-tab-size: var(--syntax-tab-size);
+	tab-size: var(--syntax-tab-size);
+	-webkit-hyphens: none;
+	-ms-hyphens: none;
+	hyphens: none;
+	direction: ltr;
+	text-align: left;
+	white-space: pre;
+	word-spacing: normal;
+	word-break: normal;
+}
+
+code {
+	word-break: break-all;
+}
+
+/* Header */
+header {
+	display: flex;
+	gap: 1em .5em;
+	flex-wrap: wrap;
+	align-items: center;
+	padding: 1em;
+}
+
+.home-link {
+	font-size: 1em;
+	/* 16px /16 */
+	font-weight: 700;
+	margin-right: 2em;
+}
+
+.home-link:link:not(:hover) {
+	text-decoration: none;
+}
+
+/* Nav */
+.nav {
+	display: flex;
+	padding: 0;
+	margin: 0;
+	list-style: none;
+}
+
+.nav-item {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.nav-item a[href]:not(:hover) {
+	text-decoration: none;
+}
+
+.nav a[href][aria-current="page"] {
+	text-decoration: underline;
+}
+
+/* Posts list */
+.postlist {
+	list-style: none;
+	padding: 0;
+	padding-left: 1.5rem;
+}
+
+.postlist-item {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: baseline;
+	counter-increment: start-from -1;
+	margin-bottom: 1em;
+}
+
+.postlist-item:before {
+	display: inline-block;
+	pointer-events: none;
+	content: "" counter(start-from, decimal-leading-zero) ". ";
+	line-height: 100%;
+	text-align: right;
+	margin-left: -1.5rem;
+}
+
+.postlist-date,
+.postlist-item:before {
+	font-size: 0.8125em;
+	/* 13px /16 */
+	color: var(--color-gray-90);
+}
+
+.postlist-date {
+	word-spacing: -0.5px;
+}
+
+.postlist-link {
+	font-size: 1.1875em;
+	/* 19px /16 */
+	font-weight: 700;
+	flex-basis: calc(100% - 1.5rem);
+	padding-left: .25em;
+	padding-right: .5em;
+	text-underline-position: from-font;
+	text-underline-offset: 0;
+	text-decoration-thickness: 1px;
+}
+
+.postlist-item-active .postlist-link {
+	font-weight: bold;
+}
+
+/* Tags */
+.post-tag {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	text-transform: capitalize;
+	font-style: italic;
+}
+
+.postlist-item>.post-tag {
+	align-self: center;
+}
+
+/* Tags list */
+.post-metadata {
+	display: inline-flex;
+	flex-wrap: wrap;
+	gap: .5em;
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.post-metadata time {
+	margin-right: 1em;
+}
+
+/* Direct Links / Markdown Headers */
+.header-anchor {
+	text-decoration: none;
+	font-style: normal;
+	font-size: 1em;
+	margin-left: .1em;
+}
+
+a[href].header-anchor,
+a[href].header-anchor:visited {
+	color: transparent;
+}
+
+a[href].header-anchor:focus,
+a[href].header-anchor:hover {
+	text-decoration: underline;
+}
+
+a[href].header-anchor:focus,
+:hover>a[href].header-anchor {
+	color: #aaa;
+}
+
+h2+.header-anchor {
+	font-size: 1.5em;
+}
+
+img {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 100%;
+	object-fit: contain;
+}</style>
+	</head>
+	<body>
+		<a href="#skip" class="visually-hidden">Skip to main content</a>
+
+		<header>
+			<a href="/domz-lab-blog/" class="home-link">domzlab</a>
+			<nav>
+				<h2 class="visually-hidden">Top level navigation menu</h2>
+				<ul class="nav">
+					<li class="nav-item"><a href="/domz-lab-blog/">Home</a></li>
+					<li class="nav-item"><a href="/domz-lab-blog/blog/">Archive</a></li>
+					<li class="nav-item"><a href="/domz-lab-blog/about/">About Me</a></li>
+				</ul>
+			</nav>
+		</header>
+
+		<main id="skip">
+			
+<h1>Create 11ty static website from template</h1>
+
+<ul class="post-metadata">
+	<li><time datetime="2023-11-05">05 November 2023</time></li>
+	<li><a href="/domz-lab-blog/tags/11ty/" class="post-tag">11ty</a>, </li>
+	<li><a href="/domz-lab-blog/tags/github-pages/" class="post-tag">GitHub Pages</a></li>
+</ul>
+
+<h3 id="introduction" tabindex="-1">Introduction <a class="header-anchor" href="#introduction">#</a></h3>
+<p>In this post, I provide an overview of how I used the 11ty base theme as the starting point of this blog.</p>
+<h3 id="pre-requisites" tabindex="-1">Pre Requisites <a class="header-anchor" href="#pre-requisites">#</a></h3>
+<p>To authorize requests to github when running commands from terminal e.g. cloning, git push/pull etc, I am using SSH keys. Ensure that you have configured an SSH key in GitHub.</p>
+<p>To have the same setup on your end, you can follow these guides from the GitHub documentation:</p>
+<ul>
+<li><a href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent">Generate an SSH key</a></li>
+<li><a href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account">Add a new SSH key to your GitHub account</a></li>
+</ul>
+<p>I also recommend using VS Code as your code editor. Feel free to use any code/text editor of your choice.</p>
+<h3 id="create-repository-from-template" tabindex="-1">Create Repository from Template <a class="header-anchor" href="#create-repository-from-template">#</a></h3>
+<p>The template I used for this site is the <a href="https://github.com/11ty/eleventy-base-blog">eleventy base blog</a>.</p>
+<p>Using the link above to view the eleventy-base-blog in github.</p>
+<p><img src="/domz-lab-blog/img/create_website_blog/1_11ty_base_blog.png" alt="use template eleventy base blog"></p>
+<p>Select <em><strong>Use this template</strong></em> →  <em><strong>Create a new repository</strong></em></p>
+<p>On the <em><strong>Create a new repository</strong></em> page, specify a name for your name repository. Then select <em><strong>Create repository</strong></em>.</p>
+<p><img src="/domz-lab-blog/img/create_website_blog/2_create_repository.png" alt="create new repository from template"></p>
+<h3 id="clone-repository-and-run-server-locally" tabindex="-1">Clone repository and run server locally <a class="header-anchor" href="#clone-repository-and-run-server-locally">#</a></h3>
+<p>On your local machine, clone the newly created repository in a directory on your choice.</p>
+<p>Command to clone respository to your local machine: <strong><code>git clone git@github.com:&lt;USER-NAME&gt;/&lt;REPOSITORY-NAME&gt;.git</code></strong></p>
+<p>Before we begin modifying the code, first, we shall run the server locally. Run <strong><code>npm install</code></strong> to install the depdencies.</p>
+<p>Thereafrer, to run the server locally, run <strong><code>npm start</code></strong>.</p>
+<h3 id="update-code-base" tabindex="-1">Update code base <a class="header-anchor" href="#update-code-base">#</a></h3>
+<p>In package.json, update the pathprefix seen in the <strong>build-ghpages</strong> script to be the same as your respository name:</p>
+<pre><code>&quot;build-ghpages&quot;: &quot;npx @11ty/eleventy --pathprefix=/noname-blog/&quot;
+</code></pre>
+<p>Thereafter, remove <strong>package-lock.json</strong> from .gitignore.</p>
+<p>In the root of your repository, create a folder named <strong>.github</strong>. Then, inside that folder, create a sub-directory named <strong>workflows</strong>.</p>
+<p>Using the YAML below, create the file <em><strong>.github/workflows/build-and-deploy.yml</strong></em> in the newly created directory.</p>
+<pre class="language-yaml" tabindex="0"><code class="language-yaml"><span class="token key atrule">name</span><span class="token punctuation">:</span> Build and Deploy
+<span class="token key atrule">on</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>push<span class="token punctuation">]</span>
+<span class="token key atrule">jobs</span><span class="token punctuation">:</span>
+  <span class="token key atrule">build-and-deploy</span><span class="token punctuation">:</span>
+    <span class="token key atrule">runs-on</span><span class="token punctuation">:</span> ubuntu<span class="token punctuation">-</span>latest
+    <span class="token key atrule">steps</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Checkout
+        <span class="token key atrule">uses</span><span class="token punctuation">:</span> actions/checkout@v3
+
+      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Install and Build
+        <span class="token key atrule">run</span><span class="token punctuation">:</span> <span class="token punctuation">|</span><span class="token scalar string">
+          npm ci
+          npm run build-ghpages</span>
+
+      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Deploy
+        <span class="token key atrule">uses</span><span class="token punctuation">:</span> peaceiris/actions<span class="token punctuation">-</span>gh<span class="token punctuation">-</span>pages@v3
+        <span class="token key atrule">with</span><span class="token punctuation">:</span>
+          <span class="token key atrule">publish_dir</span><span class="token punctuation">:</span> ./_site
+          <span class="token key atrule">github_token</span><span class="token punctuation">:</span> $<span class="token punctuation">{</span><span class="token punctuation">{</span> secrets.GITHUB_TOKEN <span class="token punctuation">}</span><span class="token punctuation">}</span></code></pre>
+<h3 id="deploy-code" tabindex="-1">Deploy Code <a class="header-anchor" href="#deploy-code">#</a></h3>
+<p>After making the above changes, deploy your code:</p>
+<pre class="language-sh" tabindex="0"><code class="language-sh"><span class="token function">git</span> <span class="token function">add</span> <span class="token parameter variable">-A</span>
+<span class="token function">git</span> commit <span class="token parameter variable">-m</span> <span class="token string">"Update package.json. Add build file."</span>
+<span class="token function">git</span> push</code></pre>
+<p>After running the above, navigate to your github respository on github.com. You should then see a red x next to the short code of your most recent commit. You may need to wait for a few more minutes to see this.</p>
+<p>The red x indicates that there was an issue with your most recent build. Select the red x to see more details.</p>
+<p><img src="/domz-lab-blog/img/create_website_blog/4_check_build_result.png" alt="Build failure about code push"></p>
+<p>When you select <strong>Details</strong>, this will take you to the Actions tab, and provide more details regarding why the build failed. In this case, a 403 error was being returned.</p>
+<p><img src="/domz-lab-blog/img/create_website_blog/5_build_failed.png" alt="Build failure about code push"></p>
+<h3 id="update-permissions" tabindex="-1">Update Permissions <a class="header-anchor" href="#update-permissions">#</a></h3>
+<p>To resolve the error, you will need to go to Settings →  Action → General  →  Workflow permissions  → choose <strong>read and write permissions</strong> [1].</p>
+<p>Thereafter, re-run your failed build job. To do this, go to Actions, and under All workflow, you should see the build that failed. This would have the same value/name used in your commit message. In my case, this was <strong>Update package.json. Add build file</strong>. The name of the workflow that run would be the same as the commit message.</p>
+<p>Now, select the workflow that failed to run, then seelect Re-run all jobs. Therefore, the build should complete successfully.</p>
+<p>What you will see is that a new branch named gh-pages got create. This will be branch specified when configuring github pages as described further below.</p>
+<h3 id="enable-github-pages" tabindex="-1">Enable GitHub Pages <a class="header-anchor" href="#enable-github-pages">#</a></h3>
+<p>To enable GitHub pages on your GitHub repository, navigate to your respository, and select the <strong>Settings</strong>. From the left navigation menu, select <strong>Pages</strong>.</p>
+<p>On the <strong>GitHub Pages</strong> settings page that appears, configure the following:</p>
+<pre><code>Source: Deploy from Branch
+Branch: gh-pages
+</code></pre>
+<p>Then select save. After some time (waited for a minute or so on my end), refresh the page, and you should then be able to see the link to your static website</p>
+<p><img src="/domz-lab-blog/img/create_website_blog/7_github_pages_link.png" alt="GitHub pages link"></p>
+<p>With that, you have deployed an 11ty website hosted on GitHub pages. You site would look similar to the one shown below.</p>
+<p><img src="/domz-lab-blog/img/create_website_blog/8_11ty_site.png" alt="11ty site"></p>
+<h3 id="references" tabindex="-1">References <a class="header-anchor" href="#references">#</a></h3>
+<p>[1] “Permission denied to github-actions[bot]. The requested URL returned error: 403,” Stack Overflow. https://stackoverflow.com/questions/73687176/permission-denied-to-github-actionsbot-the-requested-url-returned-error-403 (accessed Sep. 05, 2023).</p>
+
+
+		</main>
+
+		<footer></footer>
+
+		<!-- Current page: /domz-lab-blog/blog/create-website/ -->
+	</body>
+</html>

@@ -4,10 +4,93 @@
 	<subtitle>A blog where I write about things that I am learning.</subtitle>
 	<link href="https://domzlab.com/domz-lab-blog/feed/feed.xml" rel="self"/>
 	<link href="https://domzlab.com/domz-lab-blog/"/>
-	<updated>2023-06-24T18:51:00Z</updated>
+	<updated>2023-11-05T09:33:55Z</updated>
 	<id>https://domzlab.com/</id>
 	<author>
 		<name>Dominic Manthoko</name>
 		<email>domzlab523@gmail.com</email>
 	</author>
+	
+	<entry>
+		<title>Create 11ty static website from template</title>
+		<link href="https://domzlab.com/domz-lab-blog/blog/create-website/"/>
+		<updated>2023-11-05T09:33:55Z</updated>
+		<id>https://domzlab.com/domz-lab-blog/blog/create-website/</id>
+		<content type="html">&lt;h3 id=&quot;introduction&quot; tabindex=&quot;-1&quot;&gt;Introduction &lt;a class=&quot;header-anchor&quot; href=&quot;https://domzlab.com/domz-lab-blog/blog/create-website/&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;In this post, I provide an overview of how I used the 11ty base theme as the starting point of this blog.&lt;/p&gt;
+&lt;h3 id=&quot;pre-requisites&quot; tabindex=&quot;-1&quot;&gt;Pre Requisites &lt;a class=&quot;header-anchor&quot; href=&quot;https://domzlab.com/domz-lab-blog/blog/create-website/&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;To authorize requests to github when running commands from terminal e.g. cloning, git push/pull etc, I am using SSH keys. Ensure that you have configured an SSH key in GitHub.&lt;/p&gt;
+&lt;p&gt;To have the same setup on your end, you can follow these guides from the GitHub documentation:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent&quot;&gt;Generate an SSH key&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account&quot;&gt;Add a new SSH key to your GitHub account&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;I also recommend using VS Code as your code editor. Feel free to use any code/text editor of your choice.&lt;/p&gt;
+&lt;h3 id=&quot;create-repository-from-template&quot; tabindex=&quot;-1&quot;&gt;Create Repository from Template &lt;a class=&quot;header-anchor&quot; href=&quot;https://domzlab.com/domz-lab-blog/blog/create-website/&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;The template I used for this site is the &lt;a href=&quot;https://github.com/11ty/eleventy-base-blog&quot;&gt;eleventy base blog&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Using the link above to view the eleventy-base-blog in github.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://domzlab.com/domz-lab-blog/img/create_website_blog/1_11ty_base_blog.png&quot; alt=&quot;use template eleventy base blog&quot;&gt;&lt;/p&gt;
+&lt;p&gt;Select &lt;em&gt;&lt;strong&gt;Use this template&lt;/strong&gt;&lt;/em&gt; →  &lt;em&gt;&lt;strong&gt;Create a new repository&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;On the &lt;em&gt;&lt;strong&gt;Create a new repository&lt;/strong&gt;&lt;/em&gt; page, specify a name for your name repository. Then select &lt;em&gt;&lt;strong&gt;Create repository&lt;/strong&gt;&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://domzlab.com/domz-lab-blog/img/create_website_blog/2_create_repository.png&quot; alt=&quot;create new repository from template&quot;&gt;&lt;/p&gt;
+&lt;h3 id=&quot;clone-repository-and-run-server-locally&quot; tabindex=&quot;-1&quot;&gt;Clone repository and run server locally &lt;a class=&quot;header-anchor&quot; href=&quot;https://domzlab.com/domz-lab-blog/blog/create-website/&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;On your local machine, clone the newly created repository in a directory on your choice.&lt;/p&gt;
+&lt;p&gt;Command to clone respository to your local machine: &lt;strong&gt;&lt;code&gt;git clone git@github.com:&amp;lt;USER-NAME&amp;gt;/&amp;lt;REPOSITORY-NAME&amp;gt;.git&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Before we begin modifying the code, first, we shall run the server locally. Run &lt;strong&gt;&lt;code&gt;npm install&lt;/code&gt;&lt;/strong&gt; to install the depdencies.&lt;/p&gt;
+&lt;p&gt;Thereafrer, to run the server locally, run &lt;strong&gt;&lt;code&gt;npm start&lt;/code&gt;&lt;/strong&gt;.&lt;/p&gt;
+&lt;h3 id=&quot;update-code-base&quot; tabindex=&quot;-1&quot;&gt;Update code base &lt;a class=&quot;header-anchor&quot; href=&quot;https://domzlab.com/domz-lab-blog/blog/create-website/&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;In package.json, update the pathprefix seen in the &lt;strong&gt;build-ghpages&lt;/strong&gt; script to be the same as your respository name:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;quot;build-ghpages&amp;quot;: &amp;quot;npx @11ty/eleventy --pathprefix=/noname-blog/&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Thereafter, remove &lt;strong&gt;package-lock.json&lt;/strong&gt; from .gitignore.&lt;/p&gt;
+&lt;p&gt;In the root of your repository, create a folder named &lt;strong&gt;.github&lt;/strong&gt;. Then, inside that folder, create a sub-directory named &lt;strong&gt;workflows&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;Using the YAML below, create the file &lt;em&gt;&lt;strong&gt;.github/workflows/build-and-deploy.yml&lt;/strong&gt;&lt;/em&gt; in the newly created directory.&lt;/p&gt;
+&lt;pre class=&quot;language-yaml&quot; tabindex=&quot;0&quot;&gt;&lt;code class=&quot;language-yaml&quot;&gt;&lt;span class=&quot;token key atrule&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; Build and Deploy
+&lt;span class=&quot;token key atrule&quot;&gt;on&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;push&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;token key atrule&quot;&gt;jobs&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;token key atrule&quot;&gt;build-and-deploy&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;token key atrule&quot;&gt;runs-on&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; ubuntu&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;latest
+    &lt;span class=&quot;token key atrule&quot;&gt;steps&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;token key atrule&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; Checkout
+        &lt;span class=&quot;token key atrule&quot;&gt;uses&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; actions/checkout@v3
+
+      &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;token key atrule&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; Install and Build
+        &lt;span class=&quot;token key atrule&quot;&gt;run&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;token scalar string&quot;&gt;
+          npm ci
+          npm run build-ghpages&lt;/span&gt;
+
+      &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;token key atrule&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; Deploy
+        &lt;span class=&quot;token key atrule&quot;&gt;uses&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; peaceiris/actions&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;gh&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;pages@v3
+        &lt;span class=&quot;token key atrule&quot;&gt;with&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+          &lt;span class=&quot;token key atrule&quot;&gt;publish_dir&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; ./_site
+          &lt;span class=&quot;token key atrule&quot;&gt;github_token&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; $&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; secrets.GITHUB_TOKEN &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&quot;deploy-code&quot; tabindex=&quot;-1&quot;&gt;Deploy Code &lt;a class=&quot;header-anchor&quot; href=&quot;https://domzlab.com/domz-lab-blog/blog/create-website/&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;After making the above changes, deploy your code:&lt;/p&gt;
+&lt;pre class=&quot;language-sh&quot; tabindex=&quot;0&quot;&gt;&lt;code class=&quot;language-sh&quot;&gt;&lt;span class=&quot;token function&quot;&gt;git&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;add&lt;/span&gt; &lt;span class=&quot;token parameter variable&quot;&gt;-A&lt;/span&gt;
+&lt;span class=&quot;token function&quot;&gt;git&lt;/span&gt; commit &lt;span class=&quot;token parameter variable&quot;&gt;-m&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;Update package.json. Add build file.&quot;&lt;/span&gt;
+&lt;span class=&quot;token function&quot;&gt;git&lt;/span&gt; push&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;After running the above, navigate to your github respository on github.com. You should then see a red x next to the short code of your most recent commit. You may need to wait for a few more minutes to see this.&lt;/p&gt;
+&lt;p&gt;The red x indicates that there was an issue with your most recent build. Select the red x to see more details.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://domzlab.com/domz-lab-blog/img/create_website_blog/4_check_build_result.png&quot; alt=&quot;Build failure about code push&quot;&gt;&lt;/p&gt;
+&lt;p&gt;When you select &lt;strong&gt;Details&lt;/strong&gt;, this will take you to the Actions tab, and provide more details regarding why the build failed. In this case, a 403 error was being returned.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://domzlab.com/domz-lab-blog/img/create_website_blog/5_build_failed.png&quot; alt=&quot;Build failure about code push&quot;&gt;&lt;/p&gt;
+&lt;h3 id=&quot;update-permissions&quot; tabindex=&quot;-1&quot;&gt;Update Permissions &lt;a class=&quot;header-anchor&quot; href=&quot;https://domzlab.com/domz-lab-blog/blog/create-website/&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;To resolve the error, you will need to go to Settings →  Action → General  →  Workflow permissions  → choose &lt;strong&gt;read and write permissions&lt;/strong&gt; [1].&lt;/p&gt;
+&lt;p&gt;Thereafter, re-run your failed build job. To do this, go to Actions, and under All workflow, you should see the build that failed. This would have the same value/name used in your commit message. In my case, this was &lt;strong&gt;Update package.json. Add build file&lt;/strong&gt;. The name of the workflow that run would be the same as the commit message.&lt;/p&gt;
+&lt;p&gt;Now, select the workflow that failed to run, then seelect Re-run all jobs. Therefore, the build should complete successfully.&lt;/p&gt;
+&lt;p&gt;What you will see is that a new branch named gh-pages got create. This will be branch specified when configuring github pages as described further below.&lt;/p&gt;
+&lt;h3 id=&quot;enable-github-pages&quot; tabindex=&quot;-1&quot;&gt;Enable GitHub Pages &lt;a class=&quot;header-anchor&quot; href=&quot;https://domzlab.com/domz-lab-blog/blog/create-website/&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;To enable GitHub pages on your GitHub repository, navigate to your respository, and select the &lt;strong&gt;Settings&lt;/strong&gt;. From the left navigation menu, select &lt;strong&gt;Pages&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;On the &lt;strong&gt;GitHub Pages&lt;/strong&gt; settings page that appears, configure the following:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Source: Deploy from Branch
+Branch: gh-pages
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Then select save. After some time (waited for a minute or so on my end), refresh the page, and you should then be able to see the link to your static website&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://domzlab.com/domz-lab-blog/img/create_website_blog/7_github_pages_link.png&quot; alt=&quot;GitHub pages link&quot;&gt;&lt;/p&gt;
+&lt;p&gt;With that, you have deployed an 11ty website hosted on GitHub pages. You site would look similar to the one shown below.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://domzlab.com/domz-lab-blog/img/create_website_blog/8_11ty_site.png&quot; alt=&quot;11ty site&quot;&gt;&lt;/p&gt;
+&lt;h3 id=&quot;references&quot; tabindex=&quot;-1&quot;&gt;References &lt;a class=&quot;header-anchor&quot; href=&quot;https://domzlab.com/domz-lab-blog/blog/create-website/&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;[1] “Permission denied to github-actions[bot]. The requested URL returned error: 403,” Stack Overflow. https://stackoverflow.com/questions/73687176/permission-denied-to-github-actionsbot-the-requested-url-returned-error-403 (accessed Sep. 05, 2023).&lt;/p&gt;
+</content>
+	</entry>
 </feed>

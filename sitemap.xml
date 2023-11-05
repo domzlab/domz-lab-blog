@@ -3,21 +3,36 @@
 	
 	<url>
 		<loc>https://domzlab.com/domz-lab-blog/about/</loc>
-		<lastmod>2023-06-24</lastmod>
+		<lastmod>2023-11-05</lastmod>
 	</url>
 	
 	<url>
 		<loc>https://domzlab.com/domz-lab-blog/blog/</loc>
-		<lastmod>2023-06-24</lastmod>
+		<lastmod>2023-11-05</lastmod>
+	</url>
+	
+	<url>
+		<loc>https://domzlab.com/domz-lab-blog/blog/create-website/</loc>
+		<lastmod>2023-11-05</lastmod>
 	</url>
 	
 	<url>
 		<loc>https://domzlab.com/domz-lab-blog/</loc>
-		<lastmod>2023-06-24</lastmod>
+		<lastmod>2023-11-05</lastmod>
 	</url>
 	
 	<url>
 		<loc>https://domzlab.com/domz-lab-blog/tags/</loc>
-		<lastmod>2023-06-24</lastmod>
+		<lastmod>2023-11-05</lastmod>
+	</url>
+	
+	<url>
+		<loc>https://domzlab.com/domz-lab-blog/tags/11ty/</loc>
+		<lastmod>2023-11-05</lastmod>
+	</url>
+	
+	<url>
+		<loc>https://domzlab.com/domz-lab-blog/tags/github-pages/</loc>
+		<lastmod>2023-11-05</lastmod>
 	</url>
 </urlset>

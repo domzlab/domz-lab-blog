@@ -3,6 +3,7 @@
 	"version": "1.0.0",
 	"description": "A blog where I write about things that I am learning.",
 	"scripts": {
+		"clean": "rm -rf _site",
 		"build": "npx @11ty/eleventy",
 		"build-ghpages": "npx @11ty/eleventy --pathprefix=/domz-lab-blog/",
 		"start": "npx @11ty/eleventy --serve --quiet",

@@ -5,8 +5,8 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>Create 11ty static website from template</title>
 		<meta name="description" content="This is a post describing how I started this website">
-		<link rel="alternate" href="/domz-lab-blog/feed/feed.xml" type="application/atom+xml" title="domzlab">
-		<link rel="alternate" href="/domz-lab-blog/feed/feed.json" type="application/json" title="domzlab">
+		<link rel="alternate" href="/feed/feed.xml" type="application/atom+xml" title="domzlab">
+		<link rel="alternate" href="/feed/feed.json" type="application/json" title="domzlab">
 		
 		<style>/**
  * okaidia theme for JavaScript, CSS and HTML
@@ -492,13 +492,13 @@ img {
 		<a href="#skip" class="visually-hidden">Skip to main content</a>
 
 		<header>
-			<a href="/domz-lab-blog/" class="home-link">domzlab</a>
+			<a href="/" class="home-link">domzlab</a>
 			<nav>
 				<h2 class="visually-hidden">Top level navigation menu</h2>
 				<ul class="nav">
-					<li class="nav-item"><a href="/domz-lab-blog/">Home</a></li>
-					<li class="nav-item"><a href="/domz-lab-blog/blog/">Archive</a></li>
-					<li class="nav-item"><a href="/domz-lab-blog/about/">About Me</a></li>
+					<li class="nav-item"><a href="/">Home</a></li>
+					<li class="nav-item"><a href="/blog/">Archive</a></li>
+					<li class="nav-item"><a href="/about/">About Me</a></li>
 				</ul>
 			</nav>
 		</header>
@@ -508,9 +508,9 @@ img {
 <h1>Create 11ty static website from template</h1>
 
 <ul class="post-metadata">
-	<li><time datetime="2023-11-05">05 November 2023</time></li>
-	<li><a href="/domz-lab-blog/tags/11ty/" class="post-tag">11ty</a>, </li>
-	<li><a href="/domz-lab-blog/tags/github-pages/" class="post-tag">GitHub Pages</a></li>
+	<li><time datetime="2023-11-07">07 November 2023</time></li>
+	<li><a href="/tags/11ty/" class="post-tag">11ty</a>, </li>
+	<li><a href="/tags/github-pages/" class="post-tag">GitHub Pages</a></li>
 </ul>
 
 <h3 id="introduction" tabindex="-1">Introduction <a class="header-anchor" href="#introduction">#</a></h3>
@@ -526,10 +526,10 @@ img {
 <h3 id="create-repository-from-template" tabindex="-1">Create Repository from Template <a class="header-anchor" href="#create-repository-from-template">#</a></h3>
 <p>The template I used for this site is the <a href="https://github.com/11ty/eleventy-base-blog">eleventy base blog</a>.</p>
 <p>Using the link above to view the eleventy-base-blog in github.</p>
-<p><img src="/domz-lab-blog/img/create_website_blog/1_11ty_base_blog.png" alt="use template eleventy base blog"></p>
+<p><img src="/img/create_website_blog/1_11ty_base_blog.png" alt="use template eleventy base blog"></p>
 <p>Select <em><strong>Use this template</strong></em> →  <em><strong>Create a new repository</strong></em></p>
 <p>On the <em><strong>Create a new repository</strong></em> page, specify a name for your name repository. Then select <em><strong>Create repository</strong></em>.</p>
-<p><img src="/domz-lab-blog/img/create_website_blog/2_create_repository.png" alt="create new repository from template"></p>
+<p><img src="/img/create_website_blog/2_create_repository.png" alt="create new repository from template"></p>
 <h3 id="clone-repository-and-run-server-locally" tabindex="-1">Clone repository and run server locally <a class="header-anchor" href="#clone-repository-and-run-server-locally">#</a></h3>
 <p>On your local machine, clone the newly created repository in a directory on your choice.</p>
 <p>Command to clone respository to your local machine: <strong><code>git clone git@github.com:&lt;USER-NAME&gt;/&lt;REPOSITORY-NAME&gt;.git</code></strong></p>
@@ -568,9 +568,9 @@ img {
 <span class="token function">git</span> push</code></pre>
 <p>After running the above, navigate to your github respository on github.com. You should then see a red x next to the short code of your most recent commit. You may need to wait for a few more minutes to see this.</p>
 <p>The red x indicates that there was an issue with your most recent build. Select the red x to see more details.</p>
-<p><img src="/domz-lab-blog/img/create_website_blog/4_check_build_result.png" alt="Build failure about code push"></p>
+<p><img src="/img/create_website_blog/4_check_build_result.png" alt="Build failure about code push"></p>
 <p>When you select <strong>Details</strong>, this will take you to the Actions tab, and provide more details regarding why the build failed. In this case, a 403 error was being returned.</p>
-<p><img src="/domz-lab-blog/img/create_website_blog/5_build_failed.png" alt="Build failure about code push"></p>
+<p><img src="/img/create_website_blog/5_build_failed.png" alt="Build failure about code push"></p>
 <h3 id="update-permissions" tabindex="-1">Update Permissions <a class="header-anchor" href="#update-permissions">#</a></h3>
 <p>To resolve the error, you will need to go to Settings →  Action → General  →  Workflow permissions  → choose <strong>read and write permissions</strong> [1].</p>
 <p>Thereafter, re-run your failed build job. To do this, go to Actions, and under All workflow, you should see the build that failed. This would have the same value/name used in your commit message. In my case, this was <strong>Update package.json. Add build file</strong>. The name of the workflow that run would be the same as the commit message.</p>
@@ -583,9 +583,9 @@ img {
 Branch: gh-pages
 </code></pre>
 <p>Then select save. After some time (waited for a minute or so on my end), refresh the page, and you should then be able to see the link to your static website</p>
-<p><img src="/domz-lab-blog/img/create_website_blog/7_github_pages_link.png" alt="GitHub pages link"></p>
+<p><img src="/img/create_website_blog/7_github_pages_link.png" alt="GitHub pages link"></p>
 <p>With that, you have deployed an 11ty website hosted on GitHub pages. You site would look similar to the one shown below.</p>
-<p><img src="/domz-lab-blog/img/create_website_blog/8_11ty_site.png" alt="11ty site"></p>
+<p><img src="/img/create_website_blog/8_11ty_site.png" alt="11ty site"></p>
 <h3 id="references" tabindex="-1">References <a class="header-anchor" href="#references">#</a></h3>
 <p>[1] “Permission denied to github-actions[bot]. The requested URL returned error: 403,” Stack Overflow. https://stackoverflow.com/questions/73687176/permission-denied-to-github-actionsbot-the-requested-url-returned-error-403 (accessed Sep. 05, 2023).</p>
 
@@ -594,6 +594,6 @@ Branch: gh-pages
 
 		<footer></footer>
 
-		<!-- Current page: /domz-lab-blog/blog/create-website/ -->
+		<!-- Current page: /blog/create-website/ -->
 	</body>
 </html>

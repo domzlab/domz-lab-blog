@@ -5,7 +5,7 @@
 	"scripts": {
 		"clean": "rm -rf _site",
 		"build": "npx @11ty/eleventy",
-		"build-ghpages": "npx @11ty/eleventy --pathprefix=/domz-lab-blog/",
+		"build-ghpages": "npx @11ty/eleventy",
 		"start": "npx @11ty/eleventy --serve --quiet",
 		"debug": "DEBUG=Eleventy* npx @11ty/eleventy",
 		"debugstart": "DEBUG=Eleventy* npx @11ty/eleventy --serve --quiet",

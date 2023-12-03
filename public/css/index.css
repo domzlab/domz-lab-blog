@@ -105,7 +105,7 @@ main :first-child {
 }
 
 header {
-	border-bottom: 1px dashed var(--color-gray-90);
+	border-bottom: 1px solid var(--color-gray-90);
 }
 
 header:after {
@@ -116,7 +116,7 @@ header:after {
 
 .links-nextprev {
 	list-style: none;
-	border-top: 1px dashed var(--color-gray-20);
+	border-top: 1px solid var(--color-gray-20);
 	padding: 1em 0;
 }
 

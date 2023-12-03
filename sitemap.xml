@@ -2,37 +2,52 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
 	
 	<url>
+		<loc>https://domzlab.com/blog/create-website/</loc>
+		<lastmod>2023-12-03</lastmod>
+	</url>
+	
+	<url>
 		<loc>https://domzlab.com/about/</loc>
-		<lastmod>2023-11-07</lastmod>
+		<lastmod>2023-12-03</lastmod>
 	</url>
 	
 	<url>
 		<loc>https://domzlab.com/blog/</loc>
-		<lastmod>2023-11-07</lastmod>
+		<lastmod>2023-12-03</lastmod>
 	</url>
 	
 	<url>
-		<loc>https://domzlab.com/blog/create-website/</loc>
-		<lastmod>2023-11-07</lastmod>
+		<loc>https://domzlab.com/blog/testing_out_elastic_beanstalk/</loc>
+		<lastmod>2023-12-03</lastmod>
 	</url>
 	
 	<url>
 		<loc>https://domzlab.com/</loc>
-		<lastmod>2023-11-07</lastmod>
+		<lastmod>2023-12-03</lastmod>
 	</url>
 	
 	<url>
 		<loc>https://domzlab.com/tags/</loc>
-		<lastmod>2023-11-07</lastmod>
+		<lastmod>2023-12-03</lastmod>
 	</url>
 	
 	<url>
 		<loc>https://domzlab.com/tags/11ty/</loc>
-		<lastmod>2023-11-07</lastmod>
+		<lastmod>2023-12-03</lastmod>
 	</url>
 	
 	<url>
 		<loc>https://domzlab.com/tags/github-pages/</loc>
-		<lastmod>2023-11-07</lastmod>
+		<lastmod>2023-12-03</lastmod>
+	</url>
+	
+	<url>
+		<loc>https://domzlab.com/tags/elastic-beanlstak/</loc>
+		<lastmod>2023-12-03</lastmod>
+	</url>
+	
+	<url>
+		<loc>https://domzlab.com/tags/nodejs/</loc>
+		<lastmod>2023-12-03</lastmod>
 	</url>
 </urlset>

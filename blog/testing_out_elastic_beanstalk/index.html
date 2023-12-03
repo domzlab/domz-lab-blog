@@ -3,12 +3,179 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>domzlab</title>
+		<title>Deploying a NodeJs application on Elastic Beanstalk</title>
 		<meta name="description" content="A blog where I write about things that I am learning.">
 		<link rel="alternate" href="/feed/feed.xml" type="application/atom+xml" title="domzlab">
 		<link rel="alternate" href="/feed/feed.json" type="application/json" title="domzlab">
 		
-		<style>.postlist { counter-reset: start-from 3 }
+		<style>/**
+ * okaidia theme for JavaScript, CSS and HTML
+ * Loosely based on Monokai textmate theme by http://www.monokai.nl/
+ * @author ocodia
+ */
+
+code[class*="language-"],
+pre[class*="language-"] {
+	color: #f8f8f2;
+	background: none;
+	text-shadow: 0 1px rgba(0, 0, 0, 0.3);
+	font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+	font-size: 1em;
+	text-align: left;
+	white-space: pre;
+	word-spacing: normal;
+	word-break: normal;
+	word-wrap: normal;
+	line-height: 1.5;
+
+	-moz-tab-size: 4;
+	-o-tab-size: 4;
+	tab-size: 4;
+
+	-webkit-hyphens: none;
+	-moz-hyphens: none;
+	-ms-hyphens: none;
+	hyphens: none;
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+	padding: 1em;
+	margin: .5em 0;
+	overflow: auto;
+	border-radius: 0.3em;
+}
+
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {
+	background: #272822;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+	padding: .1em;
+	border-radius: .3em;
+	white-space: normal;
+}
+
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+	color: #8292a2;
+}
+
+.token.punctuation {
+	color: #f8f8f2;
+}
+
+.token.namespace {
+	opacity: .7;
+}
+
+.token.property,
+.token.tag,
+.token.constant,
+.token.symbol,
+.token.deleted {
+	color: #f92672;
+}
+
+.token.boolean,
+.token.number {
+	color: #ae81ff;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+	color: #a6e22e;
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string,
+.token.variable {
+	color: #f8f8f2;
+}
+
+.token.atrule,
+.token.attr-value,
+.token.function,
+.token.class-name {
+	color: #e6db74;
+}
+
+.token.keyword {
+	color: #66d9ef;
+}
+
+.token.regex,
+.token.important {
+	color: #fd971f;
+}
+
+.token.important,
+.token.bold {
+	font-weight: bold;
+}
+.token.italic {
+	font-style: italic;
+}
+
+.token.entity {
+	cursor: help;
+}
+/*
+ * New diff- syntax
+ */
+
+pre[class*="language-diff-"] {
+	--eleventy-code-padding: 1.25em;
+	padding-left: var(--eleventy-code-padding);
+	padding-right: var(--eleventy-code-padding);
+}
+.token.deleted {
+	background-color: hsl(0, 51%, 37%);
+	color: inherit;
+}
+.token.inserted {
+	background-color: hsl(126, 31%, 39%);
+	color: inherit;
+}
+
+/* Make the + and - characters unselectable for copy/paste */
+.token.prefix.unchanged,
+.token.prefix.inserted,
+.token.prefix.deleted {
+	-webkit-user-select: none;
+	user-select: none;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding-top: 2px;
+	padding-bottom: 2px;
+}
+.token.prefix.inserted,
+.token.prefix.deleted {
+	width: var(--eleventy-code-padding);
+	background-color: rgba(0,0,0,.2);
+}
+
+/* Optional: full-width background color */
+.token.inserted:not(.prefix),
+.token.deleted:not(.prefix) {
+	display: block;
+	margin-left: calc(-1 * var(--eleventy-code-padding));
+	margin-right: calc(-1 * var(--eleventy-code-padding));
+	text-decoration: none; /* override del, ins, mark defaults */
+	color: inherit; /* override del, ins, mark defaults */
+}
 * { box-sizing: border-box; }
 /* Defaults */
 :root {
@@ -330,7 +497,7 @@ img {
 				<h2 class="visually-hidden">Top level navigation menu</h2>
 				<ul class="nav">
 					<li class="nav-item"><a href="/">Home</a></li>
-					<li class="nav-item"><a href="/blog/" aria-current="page">Archive</a></li>
+					<li class="nav-item"><a href="/blog/">Archive</a></li>
 					<li class="nav-item"><a href="/about/">About Me</a></li>
 				</ul>
 			</nav>
@@ -338,29 +505,42 @@ img {
 
 		<main id="skip">
 			
-<h1>Archive</h1>
+<h1>Deploying a NodeJs application on Elastic Beanstalk</h1>
 
+<ul class="post-metadata">
+	<li><time datetime="2023-12-03">03 December 2023</time></li>
+	<li><a href="/tags/elastic-beanlstak/" class="post-tag">Elastic Beanlstak</a>, </li>
+	<li><a href="/tags/nodejs/" class="post-tag">NodeJs</a></li>
+</ul>
 
+<h3 id="introduction" tabindex="-1">Introduction <a class="header-anchor" href="#introduction">#</a></h3>
+<p>I've recently started preparing to write AWS Certified DevOps Engineer Professional Exam. I'm currently studying through a course of ACloudGuru that helps you prepare to sit for the exam.</p>
+<p>One of the topics covered in this course is Elastic Beanstalk. In my work as Cloud Support Engineer, I have yet come encounter a situation where I need to troubleshoot issues with this service. Thus, to get a general idea of how this service works, I thought it would be a good idea to see how one would go about deploying a NodeJs application on Elastic Beanstalk.</p>
+<h3 id="development-environment" tabindex="-1">Development Environment <a class="header-anchor" href="#development-environment">#</a></h3>
+<pre class="language-sh" tabindex="0"><code class="language-sh"><span class="token function">mkdir</span> simple-app
+<span class="token builtin class-name">cd</span> simple app
+<span class="token function">touch</span> index.js</code></pre>
+<p>Theafter, run <code>eb init -</code></p>
+<p>Select a default region
+selected 4) eu-west-1 : EU (Ireland)</p>
+<p>Note, you would type the number you want to select, then hit enter to move to the next option.</p>
+<p>Select an application to use
+selected 3) [ Create new Application ]</p>
+<p>Enter Application Name</p>
+<p>Select a platform branch.
+selected 6) Node.js</p>
+<p>selected option 1) Node.js 18 running on 64bit Amazon Linux 2023</p>
+<h3 id="references" tabindex="-1">References: <a class="header-anchor" href="#references">#</a></h3>
+<p>[1] Deploying an Express application to Elastic Beanstalk - https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/create_deploy_nodejs_express.html
+[2] https://www.digitalocean.com/community/tutorials/how-to-create-a-web-server-in-node-js-with-the-http-module</p>
 
-<ol reversed class="postlist">
-
-	<li class="postlist-item">
-		<a href="/blog/testing_out_elastic_beanstalk/" class="postlist-link">Deploying a NodeJs application on Elastic Beanstalk</a>
-		<time class="postlist-date" datetime="2023-12-03">December 2023</time>
-	</li>
-
-	<li class="postlist-item">
-		<a href="/blog/create-website/" class="postlist-link">Create 11ty static website from template</a>
-		<time class="postlist-date" datetime="2023-12-03">December 2023</time>
-	</li>
-
-</ol>
-
+<ul class="links-nextprev"><li>Previous: <a href="/blog/create-website/">Create 11ty static website from template</a></li>
+</ul>
 
 		</main>
 
 		<footer></footer>
 
-		<!-- Current page: /blog/ -->
+		<!-- Current page: /blog/testing_out_elastic_beanstalk/ -->
 	</body>
 </html>

@@ -2,7 +2,7 @@
 title: Create 11ty static website from template
 description: This is a post describing how I started this website
 permalink: "/blog/create-website/"
-date: Last Modified
+date: git created
 templateEngineOverride: md
 tags:
   - 11ty

@@ -3,6 +3,11 @@
 	
 	<url>
 		<loc>https://domzlab.com/blog/create-website/</loc>
+		<lastmod>2023-11-05</lastmod>
+	</url>
+	
+	<url>
+		<loc>https://domzlab.com/blog/testing_out_elastic_beanstalk/</loc>
 		<lastmod>2023-12-04</lastmod>
 	</url>
 	
@@ -13,11 +18,6 @@
 	
 	<url>
 		<loc>https://domzlab.com/blog/</loc>
-		<lastmod>2023-12-04</lastmod>
-	</url>
-	
-	<url>
-		<loc>https://domzlab.com/blog/testing_out_elastic_beanstalk/</loc>
 		<lastmod>2023-12-04</lastmod>
 	</url>
 	

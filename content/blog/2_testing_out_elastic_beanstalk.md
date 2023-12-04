@@ -2,7 +2,7 @@
 title: Deploying a NodeJs application on Elastic Beanstalk
 description: 
 permalink: "/blog/testing_out_elastic_beanstalk/"
-date: Last Modified
+date: 2023-12-04
 templateEngineOverride: md
 tags:
   - Elastic Beanlstak

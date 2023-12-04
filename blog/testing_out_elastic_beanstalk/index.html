@@ -508,31 +508,166 @@ img {
 <h1>Deploying a NodeJs application on Elastic Beanstalk</h1>
 
 <ul class="post-metadata">
-	<li><time datetime="2023-12-03">03 December 2023</time></li>
+	<li><time datetime="2023-12-04">04 December 2023</time></li>
 	<li><a href="/tags/elastic-beanlstak/" class="post-tag">Elastic Beanlstak</a>, </li>
 	<li><a href="/tags/nodejs/" class="post-tag">NodeJs</a></li>
 </ul>
 
 <h3 id="introduction" tabindex="-1">Introduction <a class="header-anchor" href="#introduction">#</a></h3>
-<p>I've recently started preparing to write AWS Certified DevOps Engineer Professional Exam. I'm currently studying through a course of ACloudGuru that helps you prepare to sit for the exam.</p>
+<p>I've recently started preparing for the AWS Certified DevOps Engineer Professional Exam. I'm currently studying through a course on ACloudGuru that helps you prepare to sit for the exam.</p>
 <p>One of the topics covered in this course is Elastic Beanstalk. In my work as Cloud Support Engineer, I have yet come encounter a situation where I need to troubleshoot issues with this service. Thus, to get a general idea of how this service works, I thought it would be a good idea to see how one would go about deploying a NodeJs application on Elastic Beanstalk.</p>
-<h3 id="development-environment" tabindex="-1">Development Environment <a class="header-anchor" href="#development-environment">#</a></h3>
+<h3 id="setting-up-my-development-environment" tabindex="-1">Setting up my Development Environment <a class="header-anchor" href="#setting-up-my-development-environment">#</a></h3>
+<p>To create and deploy updates to an Elastic Beanstalk environment, I was using Elastic Beanstalk Command Line Interface (EB CLI) is a command line client. I used the setup scripts seen in [1] to install the EB CLI to my local machine.</p>
+<p>To get started, I created a new directory for your project files. In the newly created directory, I then added an index.js file. Below are the commands I used to do this from command line.</p>
 <pre class="language-sh" tabindex="0"><code class="language-sh"><span class="token function">mkdir</span> simple-app
-<span class="token builtin class-name">cd</span> simple app
-<span class="token function">touch</span> index.js</code></pre>
-<p>Theafter, run <code>eb init -</code></p>
-<p>Select a default region
-selected 4) eu-west-1 : EU (Ireland)</p>
+<span class="token builtin class-name">cd</span> simple app</code></pre>
+<p>Thereafter, I used the EB CLI command <code>eb init -i</code> to set the default values for my elastic beanstalk environment. Below are the options that I selected:</p>
+<pre class="language-sh" tabindex="0"><code class="language-sh">$ eb init <span class="token parameter variable">-i</span>
+
+Select a default region
+<span class="token number">1</span><span class="token punctuation">)</span> us-east-1 <span class="token builtin class-name">:</span> US East <span class="token punctuation">(</span>N. Virginia<span class="token punctuation">)</span>
+<span class="token number">2</span><span class="token punctuation">)</span> us-west-1 <span class="token builtin class-name">:</span> US West <span class="token punctuation">(</span>N. California<span class="token punctuation">)</span>
+<span class="token number">3</span><span class="token punctuation">)</span> us-west-2 <span class="token builtin class-name">:</span> US West <span class="token punctuation">(</span>Oregon<span class="token punctuation">)</span>
+<span class="token number">4</span><span class="token punctuation">)</span> eu-west-1 <span class="token builtin class-name">:</span> EU <span class="token punctuation">(</span>Ireland<span class="token punctuation">)</span>
+<span class="token punctuation">..</span>.
+<span class="token punctuation">(</span>default is <span class="token number">3</span><span class="token punctuation">)</span>: <span class="token number">4</span>
+
+
+Select an application to use
+<span class="token number">1</span><span class="token punctuation">)</span> simple-app
+<span class="token number">2</span><span class="token punctuation">)</span> first-servers
+<span class="token number">3</span><span class="token punctuation">)</span> nodejs-example-express-rds
+<span class="token number">4</span><span class="token punctuation">)</span> <span class="token punctuation">[</span> Create new Application <span class="token punctuation">]</span>
+<span class="token punctuation">(</span>default is <span class="token number">1</span><span class="token punctuation">)</span>: <span class="token number">4</span>
+
+
+Enter Application Name
+<span class="token punctuation">(</span>default is <span class="token string">"simple-app2"</span><span class="token punctuation">)</span>: 
+Application simple-app2 has been created.
+Select a platform.
+<span class="token number">1</span><span class="token punctuation">)</span> .NET Core on Linux
+<span class="token number">2</span><span class="token punctuation">)</span> .NET on Windows Server
+<span class="token number">3</span><span class="token punctuation">)</span> Docker
+<span class="token number">4</span><span class="token punctuation">)</span> Go
+<span class="token number">5</span><span class="token punctuation">)</span> Java
+<span class="token number">6</span><span class="token punctuation">)</span> Node.js
+<span class="token number">7</span><span class="token punctuation">)</span> PHP
+<span class="token number">8</span><span class="token punctuation">)</span> Packer
+<span class="token number">9</span><span class="token punctuation">)</span> Python
+<span class="token number">10</span><span class="token punctuation">)</span> Ruby
+<span class="token number">11</span><span class="token punctuation">)</span> Tomcat
+<span class="token punctuation">(</span>make a selection<span class="token punctuation">)</span>: <span class="token number">6</span>
+
+Select a platform branch.
+<span class="token number">1</span><span class="token punctuation">)</span> Node.js <span class="token number">18</span> running on 64bit Amazon Linux <span class="token number">2023</span>
+<span class="token number">2</span><span class="token punctuation">)</span> Node.js <span class="token number">18</span> running on 64bit Amazon Linux <span class="token number">2</span>
+<span class="token number">3</span><span class="token punctuation">)</span> Node.js <span class="token number">16</span> running on 64bit Amazon Linux <span class="token number">2</span> <span class="token punctuation">(</span>Deprecated<span class="token punctuation">)</span>
+<span class="token number">4</span><span class="token punctuation">)</span> Node.js <span class="token number">14</span> running on 64bit Amazon Linux <span class="token number">2</span> <span class="token punctuation">(</span>Deprecated<span class="token punctuation">)</span>
+<span class="token punctuation">(</span>default is <span class="token number">1</span><span class="token punctuation">)</span>: <span class="token number">1</span>
+
+Cannot setup CodeCommit because there is no Source Control setup, continuing with initialization
+Do you want to <span class="token builtin class-name">set</span> up SSH <span class="token keyword">for</span> your instances?
+<span class="token punctuation">(</span>Y/n<span class="token punctuation">)</span>: n</code></pre>
 <p>Note, you would type the number you want to select, then hit enter to move to the next option.</p>
-<p>Select an application to use
-selected 3) [ Create new Application ]</p>
-<p>Enter Application Name</p>
-<p>Select a platform branch.
-selected 6) Node.js</p>
-<p>selected option 1) Node.js 18 running on 64bit Amazon Linux 2023</p>
+<h3 id="application-code" tabindex="-1">Application Code <a class="header-anchor" href="#application-code">#</a></h3>
+<p>Still in the simple-app directory, I created a file named index.js. I used code below:</p>
+<pre class="language-js" tabindex="0"><code class="language-js"><span class="token keyword">const</span> http <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">"http"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> host <span class="token operator">=</span> <span class="token string">'localhost'</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> port <span class="token operator">=</span> <span class="token number">8080</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> <span class="token function-variable function">requestListener</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">req<span class="token punctuation">,</span> res</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    res<span class="token punctuation">.</span><span class="token function">writeHead</span><span class="token punctuation">(</span><span class="token number">200</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    res<span class="token punctuation">.</span><span class="token function">end</span><span class="token punctuation">(</span><span class="token string">"Hello World!"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> server <span class="token operator">=</span> http<span class="token punctuation">.</span><span class="token function">createServer</span><span class="token punctuation">(</span>requestListener<span class="token punctuation">)</span><span class="token punctuation">;</span>
+server<span class="token punctuation">.</span><span class="token function">listen</span><span class="token punctuation">(</span>port<span class="token punctuation">,</span> host<span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">Server is running on http://</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>host<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">:</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>port<span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>To test this simple server, I ran <code>node index.js</code>. Then, in another terminal window, ran curl localhost:8080. The output returned was as follows:</p>
+<pre class="language-sh" tabindex="0"><code class="language-sh">$ <span class="token function">curl</span> localhost:8080
+
+Hello World<span class="token operator">!</span></code></pre>
+<h3 id="deploy-first-build-of-application" tabindex="-1">Deploy first build of application <a class="header-anchor" href="#deploy-first-build-of-application">#</a></h3>
+<p>To deploy this application to elastic beanstalk, run <code>eb create</code>. I used the default values for each option in the command prompt:</p>
+<pre class="language-sh" tabindex="0"><code class="language-sh">$ eb create
+
+Enter Environment Name
+<span class="token punctuation">(</span>default is simple-app2-dev<span class="token punctuation">)</span>: 
+Enter DNS CNAME prefix
+<span class="token punctuation">(</span>default is simple-app2-dev<span class="token punctuation">)</span>: 
+
+Select a load balancer <span class="token builtin class-name">type</span>
+<span class="token number">1</span><span class="token punctuation">)</span> classic
+<span class="token number">2</span><span class="token punctuation">)</span> application
+<span class="token number">3</span><span class="token punctuation">)</span> network
+<span class="token punctuation">(</span>default is <span class="token number">2</span><span class="token punctuation">)</span>: <span class="token number">2</span>
+
+
+Would you like to <span class="token builtin class-name">enable</span> Spot Fleet requests <span class="token keyword">for</span> this environment? <span class="token punctuation">(</span>y/N<span class="token punctuation">)</span>: N</code></pre>
+<p>After running <code>eb create</code>, the deploy status was logged in the terminal (provided that you didn't run Ctrl+C).</p>
+<p>The first run did create the environment, but resulted in the following error:</p>
+<pre class="language-sh" tabindex="0"><code class="language-sh"><span class="token number">2023</span>-12-04 <span class="token number">11</span>:59:07    ERROR   Instance deployment failed to generate a <span class="token string">'Procfile'</span> <span class="token keyword">for</span> Node.js. Provide one of these files: <span class="token string">'package.json'</span>, <span class="token string">'server.js'</span>, or <span class="token string">'app.js'</span><span class="token builtin class-name">.</span> The deployment failed.
+<span class="token number">2023</span>-12-04 <span class="token number">11</span>:59:09    ERROR   <span class="token punctuation">[</span>Instance: i-abcef1234<span class="token punctuation">]</span> Command failed on instance. Return code: <span class="token number">1</span> Output: Engine execution has encountered an error<span class="token punctuation">..</span>
+<span class="token number">2023</span>-12-04 <span class="token number">11</span>:59:09    INFO    Command execution completed on all instances. Summary: <span class="token punctuation">[</span>Successful: <span class="token number">0</span>, Failed: <span class="token number">1</span><span class="token punctuation">]</span>.
+<span class="token number">2023</span>-12-04 <span class="token number">12</span>:00:12    ERROR   Create environment operation is complete, but with errors. For <span class="token function">more</span> information, see troubleshooting documentation.
+                                
+ERROR: ServiceError - Create environment operation is complete, but with errors. For <span class="token function">more</span> information, see troubleshooting documentation.</code></pre>
+<p>From the output, we can see that the deployment failed due to Elastic Beanstalk not being able to create a Procfile. From this, I learned that you would either need to create a package.json file for your project, or name started file server.js or app.js.</p>
+<p>In my case, what I did is create a Procfile in the route of my directory. And in that file, I specified index.js</p>
+<pre class="language-text" tabindex="0"><code class="language-text">### Contents of Procfile
+
+web: node index.js</code></pre>
+<h3 id="deploy-new-revision-of-application" tabindex="-1">Deploy new revision of application <a class="header-anchor" href="#deploy-new-revision-of-application">#</a></h3>
+<p>I then ran <code>eb deploy</code> to deploy a new revision of my application.</p>
+<p>After adding the Procfile to my project, the deployment completed successfully.</p>
+<pre class="language-sh" tabindex="0"><code class="language-sh">$ eb deploy
+
+Creating application version archive <span class="token string">"app-***"</span><span class="token builtin class-name">.</span>
+Uploading simple-app2/app-***.zip to S3. This may take a while.
+Upload Complete.
+<span class="token number">2023</span>-12-04 <span class="token number">12</span>:14:02    INFO    Environment update is starting.      
+<span class="token number">2023</span>-12-04 <span class="token number">12</span>:14:05    INFO    Deploying new version to instance<span class="token punctuation">(</span>s<span class="token punctuation">)</span>.
+<span class="token number">2023</span>-12-04 <span class="token number">12</span>:14:14    INFO    Instance deployment completed successfully.
+<span class="token number">2023</span>-12-04 <span class="token number">12</span>:14:19    INFO    New application version was deployed to running EC2 instances.
+<span class="token number">2023</span>-12-04 <span class="token number">12</span>:14:19    INFO    Environment update completed successfully.</code></pre>
+<p>To view an EB application, you can run <code>eb open</code>. This should open the application URL in a browser. Alternatively, run <code>eb status</code>. In the command output, you would see the CNAME, is the unique URL to access to your Elastic Beanstalk application.</p>
+<h3 id="final-update-to-application" tabindex="-1">Final update to application <a class="header-anchor" href="#final-update-to-application">#</a></h3>
+<p>To end off, I made one more change to my index.js file. As seen below, I updated my source code to return the request headers as an HTML response.</p>
+<pre class="language-js" tabindex="0"><code class="language-js"><span class="token keyword">const</span> http <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">"http"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> host <span class="token operator">=</span> <span class="token string">'localhost'</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> port <span class="token operator">=</span> <span class="token number">8080</span><span class="token punctuation">;</span>
+
+<span class="token comment">/**
+ * Returns the request headers as a response
+ */</span>
+<span class="token keyword">const</span> <span class="token function-variable function">requestListener</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">req<span class="token punctuation">,</span> res</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+  <span class="token keyword">let</span> arr <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+  <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token punctuation">[</span>key<span class="token punctuation">,</span> value<span class="token punctuation">]</span> <span class="token keyword">of</span> Object<span class="token punctuation">.</span><span class="token function">entries</span><span class="token punctuation">(</span>req<span class="token punctuation">.</span>headers<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        arr<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">&lt;p></span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>key<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">: </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>value<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">&lt;/p></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  
+  res<span class="token punctuation">.</span><span class="token function">setHeader</span><span class="token punctuation">(</span><span class="token string">"Content-Type"</span><span class="token punctuation">,</span> <span class="token string">"text/html"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  res<span class="token punctuation">.</span><span class="token function">writeHead</span><span class="token punctuation">(</span><span class="token number">200</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  res<span class="token punctuation">.</span><span class="token function">end</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">&lt;html>&lt;body>&lt;h2>Request Headers&lt;/h2></span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>arr<span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span><span class="token string">''</span><span class="token punctuation">)</span><span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">&lt;/body>&lt;/html></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> server <span class="token operator">=</span> http<span class="token punctuation">.</span><span class="token function">createServer</span><span class="token punctuation">(</span>requestListener<span class="token punctuation">)</span><span class="token punctuation">;</span>
+server<span class="token punctuation">.</span><span class="token function">listen</span><span class="token punctuation">(</span>port<span class="token punctuation">,</span> host<span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">Server is running on http://</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>host<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">:</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>port<span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>As before, I ran <code>eb deploy</code> to deploy a new revision. Once the deployment completed successfully, I used the CNAME of my EB application test the request on my web browser.</p>
+<p><img src="/img/test_out_elastic_beanstalk/1_view_response_in_browser.png" alt=""></p>
+<p>Thank you for reading.</p>
 <h3 id="references" tabindex="-1">References: <a class="header-anchor" href="#references">#</a></h3>
-<p>[1] Deploying an Express application to Elastic Beanstalk - https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/create_deploy_nodejs_express.html
-[2] https://www.digitalocean.com/community/tutorials/how-to-create-a-web-server-in-node-js-with-the-http-module</p>
+<ul>
+<li>[1] Install the EB CLI - https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/eb-cli3-install.html</li>
+<li>[2] Deploying an Express application to Elastic Beanstalk - https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/create_deploy_nodejs_express.html</li>
+<li>[3] https://www.digitalocean.com/community/tutorials/how-to-create-a-web-server-in-node-js-with-the-http-module</li>
+</ul>
 
 <ul class="links-nextprev"><li>Previous: <a href="/blog/create-website/">Create 11ty static website from template</a></li>
 </ul>

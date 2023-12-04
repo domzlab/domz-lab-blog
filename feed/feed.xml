@@ -4,7 +4,7 @@
 	<subtitle>A blog where I write about things that I am learning.</subtitle>
 	<link href="https://domzlab.com/feed/feed.xml" rel="self"/>
 	<link href="https://domzlab.com/"/>
-	<updated>2023-12-03T12:32:48Z</updated>
+	<updated>2023-12-04T12:50:56Z</updated>
 	<id>https://domzlab.com/</id>
 	<author>
 		<name>Dominic Manthoko</name>
@@ -14,35 +14,170 @@
 	<entry>
 		<title>Deploying a NodeJs application on Elastic Beanstalk</title>
 		<link href="https://domzlab.com/blog/testing_out_elastic_beanstalk/"/>
-		<updated>2023-12-03T12:32:48Z</updated>
+		<updated>2023-12-04T12:50:56Z</updated>
 		<id>https://domzlab.com/blog/testing_out_elastic_beanstalk/</id>
 		<content type="html">&lt;h3 id=&quot;introduction&quot; tabindex=&quot;-1&quot;&gt;Introduction &lt;a class=&quot;header-anchor&quot; href=&quot;https://domzlab.com/blog/testing_out_elastic_beanstalk/&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
-&lt;p&gt;I&#39;ve recently started preparing to write AWS Certified DevOps Engineer Professional Exam. I&#39;m currently studying through a course of ACloudGuru that helps you prepare to sit for the exam.&lt;/p&gt;
+&lt;p&gt;I&#39;ve recently started preparing for the AWS Certified DevOps Engineer Professional Exam. I&#39;m currently studying through a course on ACloudGuru that helps you prepare to sit for the exam.&lt;/p&gt;
 &lt;p&gt;One of the topics covered in this course is Elastic Beanstalk. In my work as Cloud Support Engineer, I have yet come encounter a situation where I need to troubleshoot issues with this service. Thus, to get a general idea of how this service works, I thought it would be a good idea to see how one would go about deploying a NodeJs application on Elastic Beanstalk.&lt;/p&gt;
-&lt;h3 id=&quot;development-environment&quot; tabindex=&quot;-1&quot;&gt;Development Environment &lt;a class=&quot;header-anchor&quot; href=&quot;https://domzlab.com/blog/testing_out_elastic_beanstalk/&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;h3 id=&quot;setting-up-my-development-environment&quot; tabindex=&quot;-1&quot;&gt;Setting up my Development Environment &lt;a class=&quot;header-anchor&quot; href=&quot;https://domzlab.com/blog/testing_out_elastic_beanstalk/&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;To create and deploy updates to an Elastic Beanstalk environment, I was using Elastic Beanstalk Command Line Interface (EB CLI) is a command line client. I used the setup scripts seen in [1] to install the EB CLI to my local machine.&lt;/p&gt;
+&lt;p&gt;To get started, I created a new directory for your project files. In the newly created directory, I then added an index.js file. Below are the commands I used to do this from command line.&lt;/p&gt;
 &lt;pre class=&quot;language-sh&quot; tabindex=&quot;0&quot;&gt;&lt;code class=&quot;language-sh&quot;&gt;&lt;span class=&quot;token function&quot;&gt;mkdir&lt;/span&gt; simple-app
-&lt;span class=&quot;token builtin class-name&quot;&gt;cd&lt;/span&gt; simple app
-&lt;span class=&quot;token function&quot;&gt;touch&lt;/span&gt; index.js&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Theafter, run &lt;code&gt;eb init -&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;Select a default region
-selected 4) eu-west-1 : EU (Ireland)&lt;/p&gt;
+&lt;span class=&quot;token builtin class-name&quot;&gt;cd&lt;/span&gt; simple app&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Thereafter, I used the EB CLI command &lt;code&gt;eb init -i&lt;/code&gt; to set the default values for my elastic beanstalk environment. Below are the options that I selected:&lt;/p&gt;
+&lt;pre class=&quot;language-sh&quot; tabindex=&quot;0&quot;&gt;&lt;code class=&quot;language-sh&quot;&gt;$ eb init &lt;span class=&quot;token parameter variable&quot;&gt;-i&lt;/span&gt;
+
+Select a default region
+&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; us-east-1 &lt;span class=&quot;token builtin class-name&quot;&gt;:&lt;/span&gt; US East &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;N. Virginia&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; us-west-1 &lt;span class=&quot;token builtin class-name&quot;&gt;:&lt;/span&gt; US West &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;N. California&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;token number&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; us-west-2 &lt;span class=&quot;token builtin class-name&quot;&gt;:&lt;/span&gt; US West &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;Oregon&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;token number&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; eu-west-1 &lt;span class=&quot;token builtin class-name&quot;&gt;:&lt;/span&gt; EU &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;Ireland&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;..&lt;/span&gt;.
+&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;default is &lt;span class=&quot;token number&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;: &lt;span class=&quot;token number&quot;&gt;4&lt;/span&gt;
+
+
+Select an application to use
+&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; simple-app
+&lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; first-servers
+&lt;span class=&quot;token number&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; nodejs-example-express-rds
+&lt;span class=&quot;token number&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt; Create new Application &lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;default is &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;: &lt;span class=&quot;token number&quot;&gt;4&lt;/span&gt;
+
+
+Enter Application Name
+&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;default is &lt;span class=&quot;token string&quot;&gt;&quot;simple-app2&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;: 
+Application simple-app2 has been created.
+Select a platform.
+&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; .NET Core on Linux
+&lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; .NET on Windows Server
+&lt;span class=&quot;token number&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; Docker
+&lt;span class=&quot;token number&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; Go
+&lt;span class=&quot;token number&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; Java
+&lt;span class=&quot;token number&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; Node.js
+&lt;span class=&quot;token number&quot;&gt;7&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; PHP
+&lt;span class=&quot;token number&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; Packer
+&lt;span class=&quot;token number&quot;&gt;9&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; Python
+&lt;span class=&quot;token number&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; Ruby
+&lt;span class=&quot;token number&quot;&gt;11&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; Tomcat
+&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;make a selection&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;: &lt;span class=&quot;token number&quot;&gt;6&lt;/span&gt;
+
+Select a platform branch.
+&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; Node.js &lt;span class=&quot;token number&quot;&gt;18&lt;/span&gt; running on 64bit Amazon Linux &lt;span class=&quot;token number&quot;&gt;2023&lt;/span&gt;
+&lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; Node.js &lt;span class=&quot;token number&quot;&gt;18&lt;/span&gt; running on 64bit Amazon Linux &lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt;
+&lt;span class=&quot;token number&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; Node.js &lt;span class=&quot;token number&quot;&gt;16&lt;/span&gt; running on 64bit Amazon Linux &lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;Deprecated&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;token number&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; Node.js &lt;span class=&quot;token number&quot;&gt;14&lt;/span&gt; running on 64bit Amazon Linux &lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;Deprecated&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;default is &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;: &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;
+
+Cannot setup CodeCommit because there is no Source Control setup, continuing with initialization
+Do you want to &lt;span class=&quot;token builtin class-name&quot;&gt;set&lt;/span&gt; up SSH &lt;span class=&quot;token keyword&quot;&gt;for&lt;/span&gt; your instances?
+&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;Y/n&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;: n&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Note, you would type the number you want to select, then hit enter to move to the next option.&lt;/p&gt;
-&lt;p&gt;Select an application to use
-selected 3) [ Create new Application ]&lt;/p&gt;
-&lt;p&gt;Enter Application Name&lt;/p&gt;
-&lt;p&gt;Select a platform branch.
-selected 6) Node.js&lt;/p&gt;
-&lt;p&gt;selected option 1) Node.js 18 running on 64bit Amazon Linux 2023&lt;/p&gt;
+&lt;h3 id=&quot;application-code&quot; tabindex=&quot;-1&quot;&gt;Application Code &lt;a class=&quot;header-anchor&quot; href=&quot;https://domzlab.com/blog/testing_out_elastic_beanstalk/&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;Still in the simple-app directory, I created a file named index.js. I used code below:&lt;/p&gt;
+&lt;pre class=&quot;language-js&quot; tabindex=&quot;0&quot;&gt;&lt;code class=&quot;language-js&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; http &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;http&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; host &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&#39;localhost&#39;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; port &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;8080&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;token function-variable function&quot;&gt;requestListener&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token parameter&quot;&gt;req&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; res&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    res&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;writeHead&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;200&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    res&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;Hello World!&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; server &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; http&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;createServer&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;requestListener&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+server&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;listen&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;port&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; host&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&gt;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    console&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token template-string&quot;&gt;&lt;span class=&quot;token template-punctuation string&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;Server is running on http://&lt;/span&gt;&lt;span class=&quot;token interpolation&quot;&gt;&lt;span class=&quot;token interpolation-punctuation punctuation&quot;&gt;${&lt;/span&gt;host&lt;span class=&quot;token interpolation-punctuation punctuation&quot;&gt;}&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;token interpolation&quot;&gt;&lt;span class=&quot;token interpolation-punctuation punctuation&quot;&gt;${&lt;/span&gt;port&lt;span class=&quot;token interpolation-punctuation punctuation&quot;&gt;}&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token template-punctuation string&quot;&gt;`&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;To test this simple server, I ran &lt;code&gt;node index.js&lt;/code&gt;. Then, in another terminal window, ran curl localhost:8080. The output returned was as follows:&lt;/p&gt;
+&lt;pre class=&quot;language-sh&quot; tabindex=&quot;0&quot;&gt;&lt;code class=&quot;language-sh&quot;&gt;$ &lt;span class=&quot;token function&quot;&gt;curl&lt;/span&gt; localhost:8080
+
+Hello World&lt;span class=&quot;token operator&quot;&gt;!&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&quot;deploy-first-build-of-application&quot; tabindex=&quot;-1&quot;&gt;Deploy first build of application &lt;a class=&quot;header-anchor&quot; href=&quot;https://domzlab.com/blog/testing_out_elastic_beanstalk/&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;To deploy this application to elastic beanstalk, run &lt;code&gt;eb create&lt;/code&gt;. I used the default values for each option in the command prompt:&lt;/p&gt;
+&lt;pre class=&quot;language-sh&quot; tabindex=&quot;0&quot;&gt;&lt;code class=&quot;language-sh&quot;&gt;$ eb create
+
+Enter Environment Name
+&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;default is simple-app2-dev&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;: 
+Enter DNS CNAME prefix
+&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;default is simple-app2-dev&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;: 
+
+Select a load balancer &lt;span class=&quot;token builtin class-name&quot;&gt;type&lt;/span&gt;
+&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; classic
+&lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; application
+&lt;span class=&quot;token number&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; network
+&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;default is &lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;: &lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt;
+
+
+Would you like to &lt;span class=&quot;token builtin class-name&quot;&gt;enable&lt;/span&gt; Spot Fleet requests &lt;span class=&quot;token keyword&quot;&gt;for&lt;/span&gt; this environment? &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;y/N&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;: N&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;After running &lt;code&gt;eb create&lt;/code&gt;, the deploy status was logged in the terminal (provided that you didn&#39;t run Ctrl+C).&lt;/p&gt;
+&lt;p&gt;The first run did create the environment, but resulted in the following error:&lt;/p&gt;
+&lt;pre class=&quot;language-sh&quot; tabindex=&quot;0&quot;&gt;&lt;code class=&quot;language-sh&quot;&gt;&lt;span class=&quot;token number&quot;&gt;2023&lt;/span&gt;-12-04 &lt;span class=&quot;token number&quot;&gt;11&lt;/span&gt;:59:07    ERROR   Instance deployment failed to generate a &lt;span class=&quot;token string&quot;&gt;&#39;Procfile&#39;&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;for&lt;/span&gt; Node.js. Provide one of these files: &lt;span class=&quot;token string&quot;&gt;&#39;package.json&#39;&lt;/span&gt;, &lt;span class=&quot;token string&quot;&gt;&#39;server.js&#39;&lt;/span&gt;, or &lt;span class=&quot;token string&quot;&gt;&#39;app.js&#39;&lt;/span&gt;&lt;span class=&quot;token builtin class-name&quot;&gt;.&lt;/span&gt; The deployment failed.
+&lt;span class=&quot;token number&quot;&gt;2023&lt;/span&gt;-12-04 &lt;span class=&quot;token number&quot;&gt;11&lt;/span&gt;:59:09    ERROR   &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;Instance: i-abcef1234&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt; Command failed on instance. Return code: &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt; Output: Engine execution has encountered an error&lt;span class=&quot;token punctuation&quot;&gt;..&lt;/span&gt;
+&lt;span class=&quot;token number&quot;&gt;2023&lt;/span&gt;-12-04 &lt;span class=&quot;token number&quot;&gt;11&lt;/span&gt;:59:09    INFO    Command execution completed on all instances. Summary: &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;Successful: &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;, Failed: &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;.
+&lt;span class=&quot;token number&quot;&gt;2023&lt;/span&gt;-12-04 &lt;span class=&quot;token number&quot;&gt;12&lt;/span&gt;:00:12    ERROR   Create environment operation is complete, but with errors. For &lt;span class=&quot;token function&quot;&gt;more&lt;/span&gt; information, see troubleshooting documentation.
+                                
+ERROR: ServiceError - Create environment operation is complete, but with errors. For &lt;span class=&quot;token function&quot;&gt;more&lt;/span&gt; information, see troubleshooting documentation.&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;From the output, we can see that the deployment failed due to Elastic Beanstalk not being able to create a Procfile. From this, I learned that you would either need to create a package.json file for your project, or name started file server.js or app.js.&lt;/p&gt;
+&lt;p&gt;In my case, what I did is create a Procfile in the route of my directory. And in that file, I specified index.js&lt;/p&gt;
+&lt;pre class=&quot;language-text&quot; tabindex=&quot;0&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;### Contents of Procfile
+
+web: node index.js&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&quot;deploy-new-revision-of-application&quot; tabindex=&quot;-1&quot;&gt;Deploy new revision of application &lt;a class=&quot;header-anchor&quot; href=&quot;https://domzlab.com/blog/testing_out_elastic_beanstalk/&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;I then ran &lt;code&gt;eb deploy&lt;/code&gt; to deploy a new revision of my application.&lt;/p&gt;
+&lt;p&gt;After adding the Procfile to my project, the deployment completed successfully.&lt;/p&gt;
+&lt;pre class=&quot;language-sh&quot; tabindex=&quot;0&quot;&gt;&lt;code class=&quot;language-sh&quot;&gt;$ eb deploy
+
+Creating application version archive &lt;span class=&quot;token string&quot;&gt;&quot;app-***&quot;&lt;/span&gt;&lt;span class=&quot;token builtin class-name&quot;&gt;.&lt;/span&gt;
+Uploading simple-app2/app-***.zip to S3. This may take a while.
+Upload Complete.
+&lt;span class=&quot;token number&quot;&gt;2023&lt;/span&gt;-12-04 &lt;span class=&quot;token number&quot;&gt;12&lt;/span&gt;:14:02    INFO    Environment update is starting.      
+&lt;span class=&quot;token number&quot;&gt;2023&lt;/span&gt;-12-04 &lt;span class=&quot;token number&quot;&gt;12&lt;/span&gt;:14:05    INFO    Deploying new version to instance&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;s&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;.
+&lt;span class=&quot;token number&quot;&gt;2023&lt;/span&gt;-12-04 &lt;span class=&quot;token number&quot;&gt;12&lt;/span&gt;:14:14    INFO    Instance deployment completed successfully.
+&lt;span class=&quot;token number&quot;&gt;2023&lt;/span&gt;-12-04 &lt;span class=&quot;token number&quot;&gt;12&lt;/span&gt;:14:19    INFO    New application version was deployed to running EC2 instances.
+&lt;span class=&quot;token number&quot;&gt;2023&lt;/span&gt;-12-04 &lt;span class=&quot;token number&quot;&gt;12&lt;/span&gt;:14:19    INFO    Environment update completed successfully.&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;To view an EB application, you can run &lt;code&gt;eb open&lt;/code&gt;. This should open the application URL in a browser. Alternatively, run &lt;code&gt;eb status&lt;/code&gt;. In the command output, you would see the CNAME, is the unique URL to access to your Elastic Beanstalk application.&lt;/p&gt;
+&lt;h3 id=&quot;final-update-to-application&quot; tabindex=&quot;-1&quot;&gt;Final update to application &lt;a class=&quot;header-anchor&quot; href=&quot;https://domzlab.com/blog/testing_out_elastic_beanstalk/&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;To end off, I made one more change to my index.js file. As seen below, I updated my source code to return the request headers as an HTML response.&lt;/p&gt;
+&lt;pre class=&quot;language-js&quot; tabindex=&quot;0&quot;&gt;&lt;code class=&quot;language-js&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; http &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;http&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; host &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&#39;localhost&#39;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; port &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;8080&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;token comment&quot;&gt;/**
+ * Returns the request headers as a response
+ */&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;token function-variable function&quot;&gt;requestListener&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token parameter&quot;&gt;req&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; res&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+
+  &lt;span class=&quot;token keyword&quot;&gt;let&lt;/span&gt; arr &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;key&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; value&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;of&lt;/span&gt; Object&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;entries&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;req&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;headers&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+        arr&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;push&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token template-string&quot;&gt;&lt;span class=&quot;token template-punctuation string&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&amp;lt;p&gt;&lt;/span&gt;&lt;span class=&quot;token interpolation&quot;&gt;&lt;span class=&quot;token interpolation-punctuation punctuation&quot;&gt;${&lt;/span&gt;key&lt;span class=&quot;token interpolation-punctuation punctuation&quot;&gt;}&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;: &lt;/span&gt;&lt;span class=&quot;token interpolation&quot;&gt;&lt;span class=&quot;token interpolation-punctuation punctuation&quot;&gt;${&lt;/span&gt;value&lt;span class=&quot;token interpolation-punctuation punctuation&quot;&gt;}&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&amp;lt;/p&gt;&lt;/span&gt;&lt;span class=&quot;token template-punctuation string&quot;&gt;`&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+  
+  res&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;setHeader&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;Content-Type&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;text/html&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  res&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;writeHead&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;200&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  res&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token template-string&quot;&gt;&lt;span class=&quot;token template-punctuation string&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&amp;lt;html&gt;&amp;lt;body&gt;&amp;lt;h2&gt;Request Headers&amp;lt;/h2&gt;&lt;/span&gt;&lt;span class=&quot;token interpolation&quot;&gt;&lt;span class=&quot;token interpolation-punctuation punctuation&quot;&gt;${&lt;/span&gt;arr&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&#39;&#39;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token interpolation-punctuation punctuation&quot;&gt;}&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&amp;lt;/body&gt;&amp;lt;/html&gt;&lt;/span&gt;&lt;span class=&quot;token template-punctuation string&quot;&gt;`&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; server &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; http&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;createServer&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;requestListener&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+server&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;listen&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;port&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; host&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&gt;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    console&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token template-string&quot;&gt;&lt;span class=&quot;token template-punctuation string&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;Server is running on http://&lt;/span&gt;&lt;span class=&quot;token interpolation&quot;&gt;&lt;span class=&quot;token interpolation-punctuation punctuation&quot;&gt;${&lt;/span&gt;host&lt;span class=&quot;token interpolation-punctuation punctuation&quot;&gt;}&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;token interpolation&quot;&gt;&lt;span class=&quot;token interpolation-punctuation punctuation&quot;&gt;${&lt;/span&gt;port&lt;span class=&quot;token interpolation-punctuation punctuation&quot;&gt;}&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token template-punctuation string&quot;&gt;`&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;As before, I ran &lt;code&gt;eb deploy&lt;/code&gt; to deploy a new revision. Once the deployment completed successfully, I used the CNAME of my EB application test the request on my web browser.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://domzlab.com/img/test_out_elastic_beanstalk/1_view_response_in_browser.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;Thank you for reading.&lt;/p&gt;
 &lt;h3 id=&quot;references&quot; tabindex=&quot;-1&quot;&gt;References: &lt;a class=&quot;header-anchor&quot; href=&quot;https://domzlab.com/blog/testing_out_elastic_beanstalk/&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
-&lt;p&gt;[1] Deploying an Express application to Elastic Beanstalk - https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/create_deploy_nodejs_express.html
-[2] https://www.digitalocean.com/community/tutorials/how-to-create-a-web-server-in-node-js-with-the-http-module&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;[1] Install the EB CLI - https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/eb-cli3-install.html&lt;/li&gt;
+&lt;li&gt;[2] Deploying an Express application to Elastic Beanstalk - https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/create_deploy_nodejs_express.html&lt;/li&gt;
+&lt;li&gt;[3] https://www.digitalocean.com/community/tutorials/how-to-create-a-web-server-in-node-js-with-the-http-module&lt;/li&gt;
+&lt;/ul&gt;
 </content>
 	</entry>
 	
 	<entry>
 		<title>Create 11ty static website from template</title>
 		<link href="https://domzlab.com/blog/create-website/"/>
-		<updated>2023-12-03T12:31:57Z</updated>
+		<updated>2023-12-04T12:50:36Z</updated>
 		<id>https://domzlab.com/blog/create-website/</id>
 		<content type="html">&lt;h3 id=&quot;introduction&quot; tabindex=&quot;-1&quot;&gt;Introduction &lt;a class=&quot;header-anchor&quot; href=&quot;https://domzlab.com/blog/create-website/&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
 &lt;p&gt;In this post, I provide an overview of how I used the 11ty base theme as the starting point of this blog.&lt;/p&gt;

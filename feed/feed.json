@@ -11,6 +11,14 @@
 	},
 	"items": [
 		{
+			"id": "https://domzlab.com/blog/javascript-closures/",
+			"url": "https://domzlab.com/blog/javascript-closures/",
+			"title": "JavaScript Closures",
+			"content_html": "<h3 id=\"introduction\" tabindex=\"-1\">Introduction <a class=\"header-anchor\" href=\"https://domzlab.com/blog/javascript-closures/\">#</a></h3>\n",
+			"date_published": "2024-03-23T00:00:00Z"
+		}
+		,
+		{
 			"id": "https://domzlab.com/blog/testing_out_elastic_beanstalk/",
 			"url": "https://domzlab.com/blog/testing_out_elastic_beanstalk/",
 			"title": "Deploying a NodeJs application on Elastic Beanstalk",

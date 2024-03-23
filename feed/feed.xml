@@ -4,12 +4,21 @@
 	<subtitle>A blog where I write about things that I am learning.</subtitle>
 	<link href="https://domzlab.com/feed/feed.xml" rel="self"/>
 	<link href="https://domzlab.com/"/>
-	<updated>2023-12-04T00:00:00Z</updated>
+	<updated>2024-03-23T00:00:00Z</updated>
 	<id>https://domzlab.com/</id>
 	<author>
 		<name>Dominic Manthoko</name>
 		<email>domzlab523@gmail.com</email>
 	</author>
+	
+	<entry>
+		<title>JavaScript Closures</title>
+		<link href="https://domzlab.com/blog/javascript-closures/"/>
+		<updated>2024-03-23T00:00:00Z</updated>
+		<id>https://domzlab.com/blog/javascript-closures/</id>
+		<content type="html">&lt;h3 id=&quot;introduction&quot; tabindex=&quot;-1&quot;&gt;Introduction &lt;a class=&quot;header-anchor&quot; href=&quot;https://domzlab.com/blog/javascript-closures/&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+</content>
+	</entry>
 	
 	<entry>
 		<title>Deploying a NodeJs application on Elastic Beanstalk</title>

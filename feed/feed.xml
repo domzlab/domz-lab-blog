@@ -43,7 +43,7 @@
 &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h3 id=&quot;returning-multiple-functions&quot; tabindex=&quot;-1&quot;&gt;Returning multiple functions &lt;a class=&quot;header-anchor&quot; href=&quot;https://domzlab.com/blog/javascript-closure/&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
-&lt;p&gt;To returning more than one function, you can do so in the following ways.&lt;/p&gt;
+&lt;p&gt;To return more than one function, you can do so in the following ways:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;In your return block, define the different functions you want to return.&lt;/li&gt;
 &lt;/ol&gt;

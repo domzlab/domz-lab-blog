@@ -58,7 +58,7 @@ const createCounter = function(n: number) {
 
 ### Returning multiple functions
 
-To returning more than one function, you can do so in the following ways.
+To return more than one function, you can do so in the following ways:
 
 1. In your return block, define the different functions you want to return.
 

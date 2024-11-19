@@ -513,9 +513,9 @@ img {
 	<li><a href="/tags/github-pages/" class="post-tag">GitHub Pages</a></li>
 </ul>
 
-<h3 id="introduction" tabindex="-1">Introduction <a class="header-anchor" href="#introduction">#</a></h3>
+<h2 id="introduction" tabindex="-1">Introduction <a class="header-anchor" href="#introduction">#</a></h2>
 <p>In this post, I provide an overview of how I used the 11ty base theme as the starting point of this blog.</p>
-<h3 id="pre-requisites" tabindex="-1">Pre Requisites <a class="header-anchor" href="#pre-requisites">#</a></h3>
+<h2 id="pre-requisites" tabindex="-1">Pre Requisites <a class="header-anchor" href="#pre-requisites">#</a></h2>
 <p>To authorize requests to github when running commands from terminal e.g. cloning, git push/pull etc, I am using SSH keys. Ensure that you have configured an SSH key in GitHub.</p>
 <p>To have the same setup on your end, you can follow these guides from the GitHub documentation:</p>
 <ul>
@@ -523,19 +523,19 @@ img {
 <li><a href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account">Add a new SSH key to your GitHub account</a></li>
 </ul>
 <p>I also recommend using VS Code as your code editor. Feel free to use any code/text editor of your choice.</p>
-<h3 id="create-repository-from-template" tabindex="-1">Create Repository from Template <a class="header-anchor" href="#create-repository-from-template">#</a></h3>
+<h2 id="create-repository-from-template" tabindex="-1">Create Repository from Template <a class="header-anchor" href="#create-repository-from-template">#</a></h2>
 <p>The template I used for this site is the <a href="https://github.com/11ty/eleventy-base-blog">eleventy base blog</a>.</p>
 <p>Using the link above to view the eleventy-base-blog in github.</p>
 <p><img src="/img/create_website_blog/1_11ty_base_blog.png" alt="use template eleventy base blog"></p>
 <p>Select <em><strong>Use this template</strong></em> →  <em><strong>Create a new repository</strong></em></p>
 <p>On the <em><strong>Create a new repository</strong></em> page, specify a name for your name repository. Then select <em><strong>Create repository</strong></em>.</p>
 <p><img src="/img/create_website_blog/2_create_repository.png" alt="create new repository from template"></p>
-<h3 id="clone-repository-and-run-server-locally" tabindex="-1">Clone repository and run server locally <a class="header-anchor" href="#clone-repository-and-run-server-locally">#</a></h3>
+<h2 id="clone-repository-and-run-server-locally" tabindex="-1">Clone repository and run server locally <a class="header-anchor" href="#clone-repository-and-run-server-locally">#</a></h2>
 <p>On your local machine, clone the newly created repository in a directory on your choice.</p>
 <p>Command to clone respository to your local machine: <strong><code>git clone git@github.com:&lt;USER-NAME&gt;/&lt;REPOSITORY-NAME&gt;.git</code></strong></p>
 <p>Before we begin modifying the code, first, we shall run the server locally. Run <strong><code>npm install</code></strong> to install the depdencies.</p>
 <p>Thereafrer, to run the server locally, run <strong><code>npm start</code></strong>.</p>
-<h3 id="update-code-base" tabindex="-1">Update code base <a class="header-anchor" href="#update-code-base">#</a></h3>
+<h2 id="update-code-base" tabindex="-1">Update code base <a class="header-anchor" href="#update-code-base">#</a></h2>
 <p>In package.json, update the pathprefix seen in the <strong>build-ghpages</strong> script to be the same as your respository name:</p>
 <pre><code>&quot;build-ghpages&quot;: &quot;npx @11ty/eleventy --pathprefix=/noname-blog/&quot;
 </code></pre>
@@ -561,7 +561,7 @@ img {
         <span class="token key atrule">with</span><span class="token punctuation">:</span>
           <span class="token key atrule">publish_dir</span><span class="token punctuation">:</span> ./_site
           <span class="token key atrule">github_token</span><span class="token punctuation">:</span> $<span class="token punctuation">{</span><span class="token punctuation">{</span> secrets.GITHUB_TOKEN <span class="token punctuation">}</span><span class="token punctuation">}</span></code></pre>
-<h3 id="deploy-code" tabindex="-1">Deploy Code <a class="header-anchor" href="#deploy-code">#</a></h3>
+<h2 id="deploy-code" tabindex="-1">Deploy Code <a class="header-anchor" href="#deploy-code">#</a></h2>
 <p>After making the above changes, deploy your code:</p>
 <pre class="language-sh" tabindex="0"><code class="language-sh"><span class="token function">git</span> <span class="token function">add</span> <span class="token parameter variable">-A</span>
 <span class="token function">git</span> commit <span class="token parameter variable">-m</span> <span class="token string">"Update package.json. Add build file."</span>
@@ -571,12 +571,12 @@ img {
 <p><img src="/img/create_website_blog/4_check_build_result.png" alt="Build failure about code push"></p>
 <p>When you select <strong>Details</strong>, this will take you to the Actions tab, and provide more details regarding why the build failed. In this case, a 403 error was being returned.</p>
 <p><img src="/img/create_website_blog/5_build_failed.png" alt="Build failure about code push"></p>
-<h3 id="update-permissions" tabindex="-1">Update Permissions <a class="header-anchor" href="#update-permissions">#</a></h3>
+<h2 id="update-permissions" tabindex="-1">Update Permissions <a class="header-anchor" href="#update-permissions">#</a></h2>
 <p>To resolve the error, you will need to go to Settings →  Action → General  →  Workflow permissions  → choose <strong>read and write permissions</strong> [1].</p>
 <p>Thereafter, re-run your failed build job. To do this, go to Actions, and under All workflow, you should see the build that failed. This would have the same value/name used in your commit message. In my case, this was <strong>Update package.json. Add build file</strong>. The name of the workflow that run would be the same as the commit message.</p>
 <p>Now, select the workflow that failed to run, then seelect Re-run all jobs. Therefore, the build should complete successfully.</p>
 <p>What you will see is that a new branch named gh-pages got create. This will be branch specified when configuring github pages as described further below.</p>
-<h3 id="enable-github-pages" tabindex="-1">Enable GitHub Pages <a class="header-anchor" href="#enable-github-pages">#</a></h3>
+<h2 id="enable-github-pages" tabindex="-1">Enable GitHub Pages <a class="header-anchor" href="#enable-github-pages">#</a></h2>
 <p>To enable GitHub pages on your GitHub repository, navigate to your respository, and select the <strong>Settings</strong>. From the left navigation menu, select <strong>Pages</strong>.</p>
 <p>On the <strong>GitHub Pages</strong> settings page that appears, configure the following:</p>
 <pre><code>Source: Deploy from Branch
@@ -586,7 +586,7 @@ Branch: gh-pages
 <p><img src="/img/create_website_blog/7_github_pages_link.png" alt="GitHub pages link"></p>
 <p>With that, you have deployed an 11ty website hosted on GitHub pages. You site would look similar to the one shown below.</p>
 <p><img src="/img/create_website_blog/8_11ty_site.png" alt="11ty site"></p>
-<h3 id="references" tabindex="-1">References <a class="header-anchor" href="#references">#</a></h3>
+<h2 id="references" tabindex="-1">References <a class="header-anchor" href="#references">#</a></h2>
 <p>[1] “Permission denied to github-actions[bot]. The requested URL returned error: 403,” Stack Overflow. https://stackoverflow.com/questions/73687176/permission-denied-to-github-actionsbot-the-requested-url-returned-error-403 (accessed Sep. 05, 2023).</p>
 
 <ul class="links-nextprev"><li>Next: <a href="/blog/testing_out_elastic_beanstalk/">Deploying a NodeJs application on Elastic Beanstalk</a></li>

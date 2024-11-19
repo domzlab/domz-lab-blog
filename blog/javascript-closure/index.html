@@ -514,12 +514,12 @@ img {
 	<li><a href="/tags/closures/" class="post-tag">Closures</a></li>
 </ul>
 
-<h3 id="introduction" tabindex="-1">Introduction <a class="header-anchor" href="#introduction">#</a></h3>
+<h2 id="introduction" tabindex="-1">Introduction <a class="header-anchor" href="#introduction">#</a></h2>
 <p>Over the past few years, I have been using JavaScript on and off. I have also recently started learning more about TypeScript. I am currently going through the <code>30 days of JavaScript</code> challenge on leetcode, and in the first card, learned about JavaScript Closures. Thus, I thought it would be a good idea to jot down some of things that I learned from answering the questions in the Closures section of the <code>30 days of JavaScript</code> challenge.</p>
-<h3 id="lexical-scoping" tabindex="-1">Lexical Scoping <a class="header-anchor" href="#lexical-scoping">#</a></h3>
+<h2 id="lexical-scoping" tabindex="-1">Lexical Scoping <a class="header-anchor" href="#lexical-scoping">#</a></h2>
 <p>From my understanding, lexical scoping simply refers to the ability of a nested function being able to have access to the variables defined in the outer function.</p>
 <p>Another way I like to think of it is that you have a function that returns another function. The function you return can reference the variables that are created within the outer function, the input parameters of the function.</p>
-<h3 id="returning-a-single-function" tabindex="-1">Returning a single function <a class="header-anchor" href="#returning-a-single-function">#</a></h3>
+<h2 id="returning-a-single-function" tabindex="-1">Returning a single function <a class="header-anchor" href="#returning-a-single-function">#</a></h2>
 <p>Creating a closure is relatively simple. In the example code below, createCounter is a function that takes in a value. Each tiem your call counter, it will increment the value of n.</p>
 <pre class="language-ts" tabindex="0"><code class="language-ts"><span class="token keyword">const</span> <span class="token function-variable function">createCounter</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span>n<span class="token operator">:</span> <span class="token builtin">number</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token keyword">return</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -540,7 +540,7 @@ img {
     <span class="token keyword">return</span> counter<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<h3 id="returning-multiple-functions" tabindex="-1">Returning multiple functions <a class="header-anchor" href="#returning-multiple-functions">#</a></h3>
+<h2 id="returning-multiple-functions" tabindex="-1">Returning multiple functions <a class="header-anchor" href="#returning-multiple-functions">#</a></h2>
 <p>To return more than one function, you can do so in the following ways:</p>
 <ol>
 <li>In your return block, define the different functions you want to return.</li>
@@ -594,10 +594,10 @@ img {
     
     <span class="token keyword">return</span> <span class="token punctuation">{</span> increment<span class="token punctuation">,</span> decrement<span class="token punctuation">,</span> reset <span class="token punctuation">}</span>
 <span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre>
-<h3 id="references" tabindex="-1">References: <a class="header-anchor" href="#references">#</a></h3>
+<h2 id="references" tabindex="-1">References: <a class="header-anchor" href="#references">#</a></h2>
 <p>[1] &quot;Closures - JavaScript | MDN,&quot; developer.mozilla.org. https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures</p>
 
-<ul class="links-nextprev"><li>Previous: <a href="/blog/testing_out_elastic_beanstalk/">Deploying a NodeJs application on Elastic Beanstalk</a></li>
+<ul class="links-nextprev"><li>Previous: <a href="/blog/testing_out_elastic_beanstalk/">Deploying a NodeJs application on Elastic Beanstalk</a></li><li>Next: <a href="/blog/getting-started-with-shaka-player/">Getting Started with Shaka Player</a></li>
 </ul>
 
 		</main>

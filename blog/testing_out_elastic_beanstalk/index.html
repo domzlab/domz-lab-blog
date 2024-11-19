@@ -513,10 +513,10 @@ img {
 	<li><a href="/tags/nodejs/" class="post-tag">NodeJs</a></li>
 </ul>
 
-<h3 id="introduction" tabindex="-1">Introduction <a class="header-anchor" href="#introduction">#</a></h3>
+<h2 id="introduction" tabindex="-1">Introduction <a class="header-anchor" href="#introduction">#</a></h2>
 <p>I've recently started preparing for the AWS Certified DevOps Engineer Professional Exam. I'm currently studying through a course on ACloudGuru that helps you prepare to sit for the exam.</p>
 <p>One of the topics covered in this course is Elastic Beanstalk. In my work as Cloud Support Engineer, I have yet come encounter a situation where I need to troubleshoot issues with this service. Thus, to get a general idea of how this service works, I thought it would be a good idea to see how one would go about deploying a NodeJs application on Elastic Beanstalk.</p>
-<h3 id="setting-up-my-development-environment" tabindex="-1">Setting up my Development Environment <a class="header-anchor" href="#setting-up-my-development-environment">#</a></h3>
+<h2 id="setting-up-my-development-environment" tabindex="-1">Setting up my Development Environment <a class="header-anchor" href="#setting-up-my-development-environment">#</a></h2>
 <p>To create and deploy updates to an Elastic Beanstalk environment, I was using Elastic Beanstalk Command Line Interface (EB CLI) is a command line client. I used the setup scripts seen in [1] to install the EB CLI to my local machine.</p>
 <p>To get started, I created a new directory for your project files. In the newly created directory, I then added an index.js file. Below are the commands I used to do this from command line.</p>
 <pre class="language-sh" tabindex="0"><code class="language-sh"><span class="token function">mkdir</span> simple-app
@@ -569,7 +569,7 @@ Cannot setup CodeCommit because there is no Source Control setup, continuing wit
 Do you want to <span class="token builtin class-name">set</span> up SSH <span class="token keyword">for</span> your instances?
 <span class="token punctuation">(</span>Y/n<span class="token punctuation">)</span>: n</code></pre>
 <p>Note, you would type the number you want to select, then hit enter to move to the next option.</p>
-<h3 id="application-code" tabindex="-1">Application Code <a class="header-anchor" href="#application-code">#</a></h3>
+<h2 id="application-code" tabindex="-1">Application Code <a class="header-anchor" href="#application-code">#</a></h2>
 <p>Still in the simple-app directory, I created a file named index.js. I used code below:</p>
 <pre class="language-js" tabindex="0"><code class="language-js"><span class="token keyword">const</span> http <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">"http"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token keyword">const</span> host <span class="token operator">=</span> <span class="token string">'localhost'</span><span class="token punctuation">;</span>
@@ -589,7 +589,7 @@ server<span class="token punctuation">.</span><span class="token function">liste
 <pre class="language-sh" tabindex="0"><code class="language-sh">$ <span class="token function">curl</span> localhost:8080
 
 Hello World<span class="token operator">!</span></code></pre>
-<h3 id="deploy-first-build-of-application" tabindex="-1">Deploy first build of application <a class="header-anchor" href="#deploy-first-build-of-application">#</a></h3>
+<h2 id="deploy-first-build-of-application" tabindex="-1">Deploy first build of application <a class="header-anchor" href="#deploy-first-build-of-application">#</a></h2>
 <p>To deploy this application to elastic beanstalk, run <code>eb create</code>. I used the default values for each option in the command prompt:</p>
 <pre class="language-sh" tabindex="0"><code class="language-sh">$ eb create
 
@@ -619,7 +619,7 @@ ERROR: ServiceError - Create environment operation is complete, but with errors.
 <pre class="language-text" tabindex="0"><code class="language-text">### Contents of Procfile
 
 web: node index.js</code></pre>
-<h3 id="deploy-new-revision-of-application" tabindex="-1">Deploy new revision of application <a class="header-anchor" href="#deploy-new-revision-of-application">#</a></h3>
+<h2 id="deploy-new-revision-of-application" tabindex="-1">Deploy new revision of application <a class="header-anchor" href="#deploy-new-revision-of-application">#</a></h2>
 <p>I then ran <code>eb deploy</code> to deploy a new revision of my application.</p>
 <p>After adding the Procfile to my project, the deployment completed successfully.</p>
 <pre class="language-sh" tabindex="0"><code class="language-sh">$ eb deploy
@@ -633,7 +633,7 @@ Upload Complete.
 <span class="token number">2023</span>-12-04 <span class="token number">12</span>:14:19    INFO    New application version was deployed to running EC2 instances.
 <span class="token number">2023</span>-12-04 <span class="token number">12</span>:14:19    INFO    Environment update completed successfully.</code></pre>
 <p>To view an EB application, you can run <code>eb open</code>. This should open the application URL in a browser. Alternatively, run <code>eb status</code>. In the command output, you would see the CNAME, is the unique URL to access to your Elastic Beanstalk application.</p>
-<h3 id="final-update-to-application" tabindex="-1">Final update to application <a class="header-anchor" href="#final-update-to-application">#</a></h3>
+<h2 id="final-update-to-application" tabindex="-1">Final update to application <a class="header-anchor" href="#final-update-to-application">#</a></h2>
 <p>To end off, I made one more change to my index.js file. As seen below, I updated my source code to return the request headers as an HTML response.</p>
 <pre class="language-js" tabindex="0"><code class="language-js"><span class="token keyword">const</span> http <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">"http"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token keyword">const</span> host <span class="token operator">=</span> <span class="token string">'localhost'</span><span class="token punctuation">;</span>
@@ -662,12 +662,10 @@ server<span class="token punctuation">.</span><span class="token function">liste
 <p>As before, I ran <code>eb deploy</code> to deploy a new revision. Once the deployment completed successfully, I used the CNAME of my EB application test the request on my web browser.</p>
 <p><img src="/img/test_out_elastic_beanstalk/1_view_response_in_browser.png" alt=""></p>
 <p>Thank you for reading.</p>
-<h3 id="references" tabindex="-1">References: <a class="header-anchor" href="#references">#</a></h3>
-<ul>
-<li>[1] Install the EB CLI - https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/eb-cli3-install.html</li>
-<li>[2] Deploying an Express application to Elastic Beanstalk - https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/create_deploy_nodejs_express.html</li>
-<li>[3] https://www.digitalocean.com/community/tutorials/how-to-create-a-web-server-in-node-js-with-the-http-module</li>
-</ul>
+<h2 id="references" tabindex="-1">References: <a class="header-anchor" href="#references">#</a></h2>
+<p>[1] Install the EB CLI - https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/eb-cli3-install.html</p>
+<p>[2] Deploying an Express application to Elastic Beanstalk - https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/create_deploy_nodejs_express.html</p>
+<p>[3] https://www.digitalocean.com/community/tutorials/how-to-create-a-web-server-in-node-js-with-the-http-module</p>
 
 <ul class="links-nextprev"><li>Previous: <a href="/blog/create-website/">Create 11ty static website from template</a></li><li>Next: <a href="/blog/javascript-closure/">JavaScript Closures</a></li>
 </ul>

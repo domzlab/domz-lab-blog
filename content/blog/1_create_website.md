@@ -9,11 +9,11 @@ tags:
   - GitHub Pages
 ---
 
-### Introduction
+## Introduction
 
 In this post, I provide an overview of how I used the 11ty base theme as the starting point of this blog.
 
-### Pre Requisites
+## Pre Requisites
 
 To authorize requests to github when running commands from terminal e.g. cloning, git push/pull etc, I am using SSH keys. Ensure that you have configured an SSH key in GitHub.
 
@@ -24,7 +24,7 @@ To have the same setup on your end, you can follow these guides from the GitHub 
 
 I also recommend using VS Code as your code editor. Feel free to use any code/text editor of your choice.
 
-### Create Repository from Template
+## Create Repository from Template
 
 The template I used for this site is the [eleventy base blog](https://github.com/11ty/eleventy-base-blog). 
 
@@ -38,7 +38,7 @@ On the ***Create a new repository*** page, specify a name for your name reposito
 
 ![create new repository from template](/img/create_website_blog/2_create_repository.png)
 
-### Clone repository and run server locally
+## Clone repository and run server locally
 
 On your local machine, clone the newly created repository in a directory on your choice. 
 
@@ -48,7 +48,7 @@ Before we begin modifying the code, first, we shall run the server locally. Run 
 
 Thereafrer, to run the server locally, run **`npm start`**.
 
-### Update code base
+## Update code base
 
 In package.json, update the pathprefix seen in the **build-ghpages** script to be the same as your respository name:
 
@@ -84,7 +84,7 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
-### Deploy Code
+## Deploy Code
 
 After making the above changes, deploy your code:
 
@@ -104,7 +104,7 @@ When you select **Details**, this will take you to the Actions tab, and provide 
 
 ![Build failure about code push](/img/create_website_blog/5_build_failed.png)
 
-### Update Permissions
+## Update Permissions
 
 To resolve the error, you will need to go to Settings &rarr;  Action &rarr; General  &rarr;  Workflow permissions  &rarr; choose **read and write permissions** [1].
 
@@ -114,7 +114,7 @@ Now, select the workflow that failed to run, then seelect Re-run all jobs. There
 
 What you will see is that a new branch named gh-pages got create. This will be branch specified when configuring github pages as described further below.
 
-### Enable GitHub Pages
+## Enable GitHub Pages
 
 To enable GitHub pages on your GitHub repository, navigate to your respository, and select the **Settings**. From the left navigation menu, select **Pages**.
 
@@ -133,6 +133,6 @@ With that, you have deployed an 11ty website hosted on GitHub pages. You site wo
 
 ![11ty site](/img/create_website_blog/8_11ty_site.png)
 
-### References
+## References
 
 [1] “Permission denied to github-actions[bot]. The requested URL returned error: 403,” Stack Overflow. https://stackoverflow.com/questions/73687176/permission-denied-to-github-actionsbot-the-requested-url-returned-error-403 (accessed Sep. 05, 2023).

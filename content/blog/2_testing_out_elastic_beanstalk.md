@@ -9,13 +9,13 @@ tags:
   - NodeJs
 ---
 
-### Introduction
+## Introduction
 
 I've recently started preparing for the AWS Certified DevOps Engineer Professional Exam. I'm currently studying through a course on ACloudGuru that helps you prepare to sit for the exam.
 
 One of the topics covered in this course is Elastic Beanstalk. In my work as Cloud Support Engineer, I have yet come encounter a situation where I need to troubleshoot issues with this service. Thus, to get a general idea of how this service works, I thought it would be a good idea to see how one would go about deploying a NodeJs application on Elastic Beanstalk.
 
-### Setting up my Development Environment
+## Setting up my Development Environment
 
 To create and deploy updates to an Elastic Beanstalk environment, I was using Elastic Beanstalk Command Line Interface (EB CLI) is a command line client. I used the setup scripts seen in [1] to install the EB CLI to my local machine.
 
@@ -80,7 +80,7 @@ Do you want to set up SSH for your instances?
 
 Note, you would type the number you want to select, then hit enter to move to the next option. 
 
-### Application Code
+## Application Code
 
 Still in the simple-app directory, I created a file named index.js. I used code below:
 
@@ -110,7 +110,7 @@ $ curl localhost:8080
 Hello World!
 ```
 
-### Deploy first build of application
+## Deploy first build of application
 
 To deploy this application to elastic beanstalk, run `eb create`. I used the default values for each option in the command prompt:
 
@@ -155,7 +155,7 @@ In my case, what I did is create a Procfile in the route of my directory. And in
 web: node index.js
 ```
 
-### Deploy new revision of application
+## Deploy new revision of application
 
 I then ran `eb deploy` to deploy a new revision of my application.
 
@@ -177,7 +177,7 @@ Upload Complete.
 
 To view an EB application, you can run `eb open`. This should open the application URL in a browser. Alternatively, run `eb status`. In the command output, you would see the CNAME, is the unique URL to access to your Elastic Beanstalk application.
 
-### Final update to application
+## Final update to application
 
 To end off, I made one more change to my index.js file. As seen below, I updated my source code to return the request headers as an HTML response.
 
@@ -214,8 +214,10 @@ As before, I ran `eb deploy` to deploy a new revision. Once the deployment compl
 
 Thank you for reading.
 
-### References:
+## References:
 
-- [1] Install the EB CLI - https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/eb-cli3-install.html
-- [2] Deploying an Express application to Elastic Beanstalk - https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/create_deploy_nodejs_express.html
-- [3] https://www.digitalocean.com/community/tutorials/how-to-create-a-web-server-in-node-js-with-the-http-module
+[1] Install the EB CLI - https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/eb-cli3-install.html
+
+[2] Deploying an Express application to Elastic Beanstalk - https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/create_deploy_nodejs_express.html
+
+[3] https://www.digitalocean.com/community/tutorials/how-to-create-a-web-server-in-node-js-with-the-http-module

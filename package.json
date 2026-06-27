@@ -6,9 +6,9 @@
 	"scripts": {
 		"build": "cross-env NODE_NO_WARNINGS=1 npx @11ty/eleventy",
 		"build-nocolor": "cross-env NODE_DISABLE_COLORS=1 NODE_NO_WARNINGS=1 npx @11ty/eleventy",
-		"build-ghpages": "cross-env NODE_NO_WARNINGS=1 npx @11ty/eleventy --pathprefix=/eleventy-base-blog/",
+		"build-ghpages": "cross-env NODE_NO_WARNINGS=1 npx @11ty/eleventy --pathprefix=/",
 		"start": "cross-env NODE_NO_WARNINGS=1 npx @11ty/eleventy --serve --quiet",
-		"start-ghpages": "cross-env NODE_NO_WARNINGS=1 npx @11ty/eleventy --pathprefix=/eleventy-base-blog/ --serve --quiet",
+		"start-ghpages": "cross-env NODE_NO_WARNINGS=1 npx @11ty/eleventy --pathprefix=/ --serve --quiet",
 		"debug": "cross-env DEBUG=Eleventy* NODE_NO_WARNINGS=1 npx @11ty/eleventy",
 		"debugstart": "cross-env DEBUG=Eleventy* NODE_NO_WARNINGS=1 npx @11ty/eleventy --serve --quiet",
 		"benchmark": "cross-env DEBUG=Eleventy:Benchmark* NODE_NO_WARNINGS=1 npx @11ty/eleventy"

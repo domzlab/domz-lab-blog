@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom" xml:base="en">
-	<title>domzlab</title>
-	<subtitle>A blog where I write about things that I am learning.</subtitle>
-	<link href="https://domzlab.com/feed/feed.xml" rel="self"/>
-	<link href="https://domzlab.com/"/>
-	<updated>2024-11-19T00:00:00Z</updated>
-	<id>https://domzlab.com/</id>
-	<author>
-		<name>Dominic Manthoko</name>
-		<email>domzlab523@gmail.com</email>
-	</author>
-	
-	<entry>
-		<title>Getting Started with Shaka Player</title>
-		<link href="https://domzlab.com/blog/getting-started-with-shaka-player/"/>
-		<updated>2024-11-19T00:00:00Z</updated>
-		<id>https://domzlab.com/blog/getting-started-with-shaka-player/</id>
-		<content type="html">&lt;h2 id=&quot;introduction&quot; tabindex=&quot;-1&quot;&gt;Introduction &lt;a class=&quot;header-anchor&quot; href=&quot;https://domzlab.com/blog/getting-started-with-shaka-player/&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+<?xml-stylesheet href="pretty-atom-feed.xsl" type="text/xsl"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+  
+  <title>domzlab</title>
+  <subtitle>A premium hub for creative experiments, state-of-the-art designs, and technical logs.</subtitle>
+  <link href="https://domzlab.com/eleventy-base-blog/feed/feed.xml" rel="self" />
+  <link href="https://domzlab.com/eleventy-base-blog/" />
+  <updated>2024-11-19T00:00:00Z</updated>
+  <id>https://domzlab.com/eleventy-base-blog/</id>
+  <author>
+    <name>Dominic Manthoko</name>
+  </author>
+  <entry>
+    <title>Getting Started with Shaka Player</title>
+    <link href="https://domzlab.com/eleventy-base-blog/blog/getting-started-with-shaka-player/" />
+    <updated>2024-11-19T00:00:00Z</updated>
+    <id>https://domzlab.com/eleventy-base-blog/blog/getting-started-with-shaka-player/</id>
+    <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 &lt;p&gt;I was working with a customer that was facing playback issues when testing video playback via a CloudFront distribution.
 For playback, the customer was using Shaka player, which is an open source JavaScript library for adaptive media [1].&lt;/p&gt;
 &lt;p&gt;In this post, I walk through how I setup a simple test environment I could use to further troubleshoot the customers
@@ -24,7 +24,7 @@ playback issues.&lt;/p&gt;
 &lt;p&gt;The source code I use within this post is largely an adaptation of the what is shared in the Basic usage page of
 Shaka Player [2].&lt;/p&gt;
 &lt;p&gt;Wrote this as a way to help with my own learning, and to in case anyone find this interesting.&lt;/p&gt;
-&lt;h2 id=&quot;installation&quot; tabindex=&quot;-1&quot;&gt;Installation &lt;a class=&quot;header-anchor&quot; href=&quot;https://domzlab.com/blog/getting-started-with-shaka-player/&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;h2 id=&quot;installation&quot;&gt;Installation&lt;/h2&gt;
 &lt;p&gt;There is the option of importing shaka player as an npm player, which I shall explore at a later time. In this case,
 I build from source.&lt;/p&gt;
 &lt;pre class=&quot;language-sh&quot; tabindex=&quot;0&quot;&gt;&lt;code class=&quot;language-sh&quot;&gt;&lt;span class=&quot;token function&quot;&gt;git&lt;/span&gt; clone https://github.com/shaka-project/shaka-player.git
@@ -33,7 +33,7 @@ I build from source.&lt;/p&gt;
 &lt;pre class=&quot;language-sh&quot; tabindex=&quot;0&quot;&gt;&lt;code class=&quot;language-sh&quot;&gt;python build/all.py&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Note: I was running the above from MacOS. Thus, I used python3.&lt;/p&gt;
 &lt;p&gt;Once the build is done, the file we are interested in is &lt;code&gt;dist/shaka-player.compiled.js&lt;/code&gt;.&lt;/p&gt;
-&lt;h2 id=&quot;updating-the-index-html-file&quot; tabindex=&quot;-1&quot;&gt;Updating the index.html file &lt;a class=&quot;header-anchor&quot; href=&quot;https://domzlab.com/blog/getting-started-with-shaka-player/&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;h2 id=&quot;updating-the-index-html-file&quot;&gt;Updating the index.html file&lt;/h2&gt;
 &lt;p&gt;Within in the shaka-player folder, you will find an index.html file. Update the
 contents of the file to the following:&lt;/p&gt;
 &lt;pre class=&quot;language-html&quot; tabindex=&quot;0&quot;&gt;&lt;code class=&quot;language-html&quot;&gt;&lt;span class=&quot;token doctype&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;!&lt;/span&gt;&lt;span class=&quot;token doctype-tag&quot;&gt;DOCTYPE&lt;/span&gt; &lt;span class=&quot;token name&quot;&gt;html&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
@@ -58,7 +58,7 @@ contents of the file to the following:&lt;/p&gt;
 &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;html&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;In my version of the index.html file, I have an html form that would be used to specify
 the URL to a manifest of your choice.&lt;/p&gt;
-&lt;h2 id=&quot;adding-some-javascript&quot; tabindex=&quot;-1&quot;&gt;Adding some JavaScript &lt;a class=&quot;header-anchor&quot; href=&quot;https://domzlab.com/blog/getting-started-with-shaka-player/&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;h2 id=&quot;adding-some-javascript&quot;&gt;Adding some JavaScript&lt;/h2&gt;
 &lt;p&gt;Create a file named &amp;quot;myapp.js&amp;quot;. For the contents of that file, I made some modifications
 to the source code seen in [2].&lt;/p&gt;
 &lt;p&gt;The myapp.js seen [2] includes the variable named &amp;quot;manifestUri&amp;quot;, the functions initApp,
@@ -135,23 +135,22 @@ document&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span c
 &lt;li&gt;player is a variable defined outside of the initPlayer so that it can called within the playVideo function&lt;/li&gt;
 &lt;li&gt;playVideo is function that takes in a string value, which is expected to URL to a manifest&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id=&quot;references&quot; tabindex=&quot;-1&quot;&gt;References: &lt;a class=&quot;header-anchor&quot; href=&quot;https://domzlab.com/blog/getting-started-with-shaka-player/&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;h2 id=&quot;references&quot;&gt;References:&lt;/h2&gt;
 &lt;p&gt;[1] https://github.com/shaka-project/shaka-player&lt;/p&gt;
 &lt;p&gt;[2] https://shaka-player-demo.appspot.com/docs/api/tutorial-basic-usage.html&lt;/p&gt;
 </content>
-	</entry>
-	
-	<entry>
-		<title>JavaScript Closures</title>
-		<link href="https://domzlab.com/blog/javascript-closure/"/>
-		<updated>2024-03-25T00:00:00Z</updated>
-		<id>https://domzlab.com/blog/javascript-closure/</id>
-		<content type="html">&lt;h2 id=&quot;introduction&quot; tabindex=&quot;-1&quot;&gt;Introduction &lt;a class=&quot;header-anchor&quot; href=&quot;https://domzlab.com/blog/javascript-closure/&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+  </entry>
+  <entry>
+    <title>JavaScript Closures</title>
+    <link href="https://domzlab.com/eleventy-base-blog/blog/javascript-closure/" />
+    <updated>2024-03-25T00:00:00Z</updated>
+    <id>https://domzlab.com/eleventy-base-blog/blog/javascript-closure/</id>
+    <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 &lt;p&gt;Over the past few years, I have been using JavaScript on and off. I have also recently started learning more about TypeScript. I am currently going through the &lt;code&gt;30 days of JavaScript&lt;/code&gt; challenge on leetcode, and in the first card, learned about JavaScript Closures. Thus, I thought it would be a good idea to jot down some of things that I learned from answering the questions in the Closures section of the &lt;code&gt;30 days of JavaScript&lt;/code&gt; challenge.&lt;/p&gt;
-&lt;h2 id=&quot;lexical-scoping&quot; tabindex=&quot;-1&quot;&gt;Lexical Scoping &lt;a class=&quot;header-anchor&quot; href=&quot;https://domzlab.com/blog/javascript-closure/&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;h2 id=&quot;lexical-scoping&quot;&gt;Lexical Scoping&lt;/h2&gt;
 &lt;p&gt;From my understanding, lexical scoping simply refers to the ability of a nested function being able to have access to the variables defined in the outer function.&lt;/p&gt;
 &lt;p&gt;Another way I like to think of it is that you have a function that returns another function. The function you return can reference the variables that are created within the outer function, the input parameters of the function.&lt;/p&gt;
-&lt;h2 id=&quot;returning-a-single-function&quot; tabindex=&quot;-1&quot;&gt;Returning a single function &lt;a class=&quot;header-anchor&quot; href=&quot;https://domzlab.com/blog/javascript-closure/&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;h2 id=&quot;returning-a-single-function&quot;&gt;Returning a single function&lt;/h2&gt;
 &lt;p&gt;Creating a closure is relatively simple. In the example code below, createCounter is a function that takes in a value. Each tiem your call counter, it will increment the value of n.&lt;/p&gt;
 &lt;pre class=&quot;language-ts&quot; tabindex=&quot;0&quot;&gt;&lt;code class=&quot;language-ts&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;token function-variable function&quot;&gt;createCounter&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;n&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token builtin&quot;&gt;number&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
     &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
@@ -172,7 +171,7 @@ document&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span c
     &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; counter&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
 &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id=&quot;returning-multiple-functions&quot; tabindex=&quot;-1&quot;&gt;Returning multiple functions &lt;a class=&quot;header-anchor&quot; href=&quot;https://domzlab.com/blog/javascript-closure/&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;h2 id=&quot;returning-multiple-functions&quot;&gt;Returning multiple functions&lt;/h2&gt;
 &lt;p&gt;To return more than one function, you can do so in the following ways:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;In your return block, define the different functions you want to return.&lt;/li&gt;
@@ -226,20 +225,19 @@ document&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span c
     
     &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; increment&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; decrement&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; reset &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
 &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id=&quot;references&quot; tabindex=&quot;-1&quot;&gt;References: &lt;a class=&quot;header-anchor&quot; href=&quot;https://domzlab.com/blog/javascript-closure/&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;h2 id=&quot;references&quot;&gt;References:&lt;/h2&gt;
 &lt;p&gt;[1] &amp;quot;Closures - JavaScript | MDN,&amp;quot; developer.mozilla.org. https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures&lt;/p&gt;
 </content>
-	</entry>
-	
-	<entry>
-		<title>Deploying a NodeJs application on Elastic Beanstalk</title>
-		<link href="https://domzlab.com/blog/testing_out_elastic_beanstalk/"/>
-		<updated>2023-12-04T00:00:00Z</updated>
-		<id>https://domzlab.com/blog/testing_out_elastic_beanstalk/</id>
-		<content type="html">&lt;h2 id=&quot;introduction&quot; tabindex=&quot;-1&quot;&gt;Introduction &lt;a class=&quot;header-anchor&quot; href=&quot;https://domzlab.com/blog/testing_out_elastic_beanstalk/&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+  </entry>
+  <entry>
+    <title>Deploying a NodeJs application on Elastic Beanstalk</title>
+    <link href="https://domzlab.com/eleventy-base-blog/blog/testing_out_elastic_beanstalk/" />
+    <updated>2023-12-04T00:00:00Z</updated>
+    <id>https://domzlab.com/eleventy-base-blog/blog/testing_out_elastic_beanstalk/</id>
+    <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 &lt;p&gt;I&#39;ve recently started preparing for the AWS Certified DevOps Engineer Professional Exam. I&#39;m currently studying through a course on ACloudGuru that helps you prepare to sit for the exam.&lt;/p&gt;
 &lt;p&gt;One of the topics covered in this course is Elastic Beanstalk. In my work as Cloud Support Engineer, I have yet come encounter a situation where I need to troubleshoot issues with this service. Thus, to get a general idea of how this service works, I thought it would be a good idea to see how one would go about deploying a NodeJs application on Elastic Beanstalk.&lt;/p&gt;
-&lt;h2 id=&quot;setting-up-my-development-environment&quot; tabindex=&quot;-1&quot;&gt;Setting up my Development Environment &lt;a class=&quot;header-anchor&quot; href=&quot;https://domzlab.com/blog/testing_out_elastic_beanstalk/&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;h2 id=&quot;setting-up-my-development-environment&quot;&gt;Setting up my Development Environment&lt;/h2&gt;
 &lt;p&gt;To create and deploy updates to an Elastic Beanstalk environment, I was using Elastic Beanstalk Command Line Interface (EB CLI) is a command line client. I used the setup scripts seen in [1] to install the EB CLI to my local machine.&lt;/p&gt;
 &lt;p&gt;To get started, I created a new directory for your project files. In the newly created directory, I then added an index.js file. Below are the commands I used to do this from command line.&lt;/p&gt;
 &lt;pre class=&quot;language-sh&quot; tabindex=&quot;0&quot;&gt;&lt;code class=&quot;language-sh&quot;&gt;&lt;span class=&quot;token function&quot;&gt;mkdir&lt;/span&gt; simple-app
@@ -292,7 +290,7 @@ Cannot setup CodeCommit because there is no Source Control setup, continuing wit
 Do you want to &lt;span class=&quot;token builtin class-name&quot;&gt;set&lt;/span&gt; up SSH &lt;span class=&quot;token keyword&quot;&gt;for&lt;/span&gt; your instances?
 &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;Y/n&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;: n&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Note, you would type the number you want to select, then hit enter to move to the next option.&lt;/p&gt;
-&lt;h2 id=&quot;application-code&quot; tabindex=&quot;-1&quot;&gt;Application Code &lt;a class=&quot;header-anchor&quot; href=&quot;https://domzlab.com/blog/testing_out_elastic_beanstalk/&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;h2 id=&quot;application-code&quot;&gt;Application Code&lt;/h2&gt;
 &lt;p&gt;Still in the simple-app directory, I created a file named index.js. I used code below:&lt;/p&gt;
 &lt;pre class=&quot;language-js&quot; tabindex=&quot;0&quot;&gt;&lt;code class=&quot;language-js&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; http &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;http&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
 &lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; host &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&#39;localhost&#39;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
@@ -312,7 +310,7 @@ server&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span cla
 &lt;pre class=&quot;language-sh&quot; tabindex=&quot;0&quot;&gt;&lt;code class=&quot;language-sh&quot;&gt;$ &lt;span class=&quot;token function&quot;&gt;curl&lt;/span&gt; localhost:8080
 
 Hello World&lt;span class=&quot;token operator&quot;&gt;!&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id=&quot;deploy-first-build-of-application&quot; tabindex=&quot;-1&quot;&gt;Deploy first build of application &lt;a class=&quot;header-anchor&quot; href=&quot;https://domzlab.com/blog/testing_out_elastic_beanstalk/&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;h2 id=&quot;deploy-first-build-of-application&quot;&gt;Deploy first build of application&lt;/h2&gt;
 &lt;p&gt;To deploy this application to elastic beanstalk, run &lt;code&gt;eb create&lt;/code&gt;. I used the default values for each option in the command prompt:&lt;/p&gt;
 &lt;pre class=&quot;language-sh&quot; tabindex=&quot;0&quot;&gt;&lt;code class=&quot;language-sh&quot;&gt;$ eb create
 
@@ -342,7 +340,7 @@ ERROR: ServiceError - Create environment operation is complete, but with errors.
 &lt;pre class=&quot;language-text&quot; tabindex=&quot;0&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;### Contents of Procfile
 
 web: node index.js&lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id=&quot;deploy-new-revision-of-application&quot; tabindex=&quot;-1&quot;&gt;Deploy new revision of application &lt;a class=&quot;header-anchor&quot; href=&quot;https://domzlab.com/blog/testing_out_elastic_beanstalk/&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;h2 id=&quot;deploy-new-revision-of-application&quot;&gt;Deploy new revision of application&lt;/h2&gt;
 &lt;p&gt;I then ran &lt;code&gt;eb deploy&lt;/code&gt; to deploy a new revision of my application.&lt;/p&gt;
 &lt;p&gt;After adding the Procfile to my project, the deployment completed successfully.&lt;/p&gt;
 &lt;pre class=&quot;language-sh&quot; tabindex=&quot;0&quot;&gt;&lt;code class=&quot;language-sh&quot;&gt;$ eb deploy
@@ -356,7 +354,7 @@ Upload Complete.
 &lt;span class=&quot;token number&quot;&gt;2023&lt;/span&gt;-12-04 &lt;span class=&quot;token number&quot;&gt;12&lt;/span&gt;:14:19    INFO    New application version was deployed to running EC2 instances.
 &lt;span class=&quot;token number&quot;&gt;2023&lt;/span&gt;-12-04 &lt;span class=&quot;token number&quot;&gt;12&lt;/span&gt;:14:19    INFO    Environment update completed successfully.&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;To view an EB application, you can run &lt;code&gt;eb open&lt;/code&gt;. This should open the application URL in a browser. Alternatively, run &lt;code&gt;eb status&lt;/code&gt;. In the command output, you would see the CNAME, is the unique URL to access to your Elastic Beanstalk application.&lt;/p&gt;
-&lt;h2 id=&quot;final-update-to-application&quot; tabindex=&quot;-1&quot;&gt;Final update to application &lt;a class=&quot;header-anchor&quot; href=&quot;https://domzlab.com/blog/testing_out_elastic_beanstalk/&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;h2 id=&quot;final-update-to-application&quot;&gt;Final update to application&lt;/h2&gt;
 &lt;p&gt;To end off, I made one more change to my index.js file. As seen below, I updated my source code to return the request headers as an HTML response.&lt;/p&gt;
 &lt;pre class=&quot;language-js&quot; tabindex=&quot;0&quot;&gt;&lt;code class=&quot;language-js&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; http &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;http&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
 &lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; host &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&#39;localhost&#39;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
@@ -383,23 +381,22 @@ server&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span cla
 &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;As before, I ran &lt;code&gt;eb deploy&lt;/code&gt; to deploy a new revision. Once the deployment completed successfully, I used the CNAME of my EB application test the request on my web browser.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://domzlab.com/img/test_out_elastic_beanstalk/1_view_response_in_browser.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;picture&gt;&lt;source type=&quot;image/avif&quot; srcset=&quot;https://domzlab.com/eleventy-base-blog/img/ysdrVO6WF6-1039.avif 1039w&quot;&gt;&lt;source type=&quot;image/webp&quot; srcset=&quot;https://domzlab.com/eleventy-base-blog/img/ysdrVO6WF6-1039.webp 1039w&quot;&gt;&lt;img loading=&quot;lazy&quot; decoding=&quot;async&quot; src=&quot;https://domzlab.com/eleventy-base-blog/img/ysdrVO6WF6-1039.png&quot; alt=&quot;&quot; width=&quot;1039&quot; height=&quot;497&quot;&gt;&lt;/picture&gt;&lt;/p&gt;
 &lt;p&gt;Thank you for reading.&lt;/p&gt;
-&lt;h2 id=&quot;references&quot; tabindex=&quot;-1&quot;&gt;References: &lt;a class=&quot;header-anchor&quot; href=&quot;https://domzlab.com/blog/testing_out_elastic_beanstalk/&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;h2 id=&quot;references&quot;&gt;References:&lt;/h2&gt;
 &lt;p&gt;[1] Install the EB CLI - https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/eb-cli3-install.html&lt;/p&gt;
 &lt;p&gt;[2] Deploying an Express application to Elastic Beanstalk - https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/create_deploy_nodejs_express.html&lt;/p&gt;
 &lt;p&gt;[3] https://www.digitalocean.com/community/tutorials/how-to-create-a-web-server-in-node-js-with-the-http-module&lt;/p&gt;
 </content>
-	</entry>
-	
-	<entry>
-		<title>Create 11ty static website from template</title>
-		<link href="https://domzlab.com/blog/create-website/"/>
-		<updated>2023-11-05T00:00:00Z</updated>
-		<id>https://domzlab.com/blog/create-website/</id>
-		<content type="html">&lt;h2 id=&quot;introduction&quot; tabindex=&quot;-1&quot;&gt;Introduction &lt;a class=&quot;header-anchor&quot; href=&quot;https://domzlab.com/blog/create-website/&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+  </entry>
+  <entry>
+    <title>Create 11ty static website from template</title>
+    <link href="https://domzlab.com/eleventy-base-blog/blog/create-website/" />
+    <updated>2023-11-05T00:00:00Z</updated>
+    <id>https://domzlab.com/eleventy-base-blog/blog/create-website/</id>
+    <content type="html">&lt;h3 id=&quot;introduction&quot;&gt;Introduction&lt;/h3&gt;
 &lt;p&gt;In this post, I provide an overview of how I used the 11ty base theme as the starting point of this blog.&lt;/p&gt;
-&lt;h2 id=&quot;pre-requisites&quot; tabindex=&quot;-1&quot;&gt;Pre Requisites &lt;a class=&quot;header-anchor&quot; href=&quot;https://domzlab.com/blog/create-website/&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;h3 id=&quot;pre-requisites&quot;&gt;Pre Requisites&lt;/h3&gt;
 &lt;p&gt;To authorize requests to github when running commands from terminal e.g. cloning, git push/pull etc, I am using SSH keys. Ensure that you have configured an SSH key in GitHub.&lt;/p&gt;
 &lt;p&gt;To have the same setup on your end, you can follow these guides from the GitHub documentation:&lt;/p&gt;
 &lt;ul&gt;
@@ -407,19 +404,19 @@ server&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span cla
 &lt;li&gt;&lt;a href=&quot;https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account&quot;&gt;Add a new SSH key to your GitHub account&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;I also recommend using VS Code as your code editor. Feel free to use any code/text editor of your choice.&lt;/p&gt;
-&lt;h2 id=&quot;create-repository-from-template&quot; tabindex=&quot;-1&quot;&gt;Create Repository from Template &lt;a class=&quot;header-anchor&quot; href=&quot;https://domzlab.com/blog/create-website/&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;h3 id=&quot;create-repository-from-template&quot;&gt;Create Repository from Template&lt;/h3&gt;
 &lt;p&gt;The template I used for this site is the &lt;a href=&quot;https://github.com/11ty/eleventy-base-blog&quot;&gt;eleventy base blog&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;Using the link above to view the eleventy-base-blog in github.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://domzlab.com/img/create_website_blog/1_11ty_base_blog.png&quot; alt=&quot;use template eleventy base blog&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;picture&gt;&lt;source type=&quot;image/avif&quot; srcset=&quot;https://domzlab.com/eleventy-base-blog/img/zGsH99V8vA-927.avif 927w&quot;&gt;&lt;source type=&quot;image/webp&quot; srcset=&quot;https://domzlab.com/eleventy-base-blog/img/zGsH99V8vA-927.webp 927w&quot;&gt;&lt;img loading=&quot;lazy&quot; decoding=&quot;async&quot; src=&quot;https://domzlab.com/eleventy-base-blog/img/zGsH99V8vA-927.png&quot; alt=&quot;use template eleventy base blog&quot; width=&quot;927&quot; height=&quot;185&quot;&gt;&lt;/picture&gt;&lt;/p&gt;
 &lt;p&gt;Select &lt;em&gt;&lt;strong&gt;Use this template&lt;/strong&gt;&lt;/em&gt; →  &lt;em&gt;&lt;strong&gt;Create a new repository&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;On the &lt;em&gt;&lt;strong&gt;Create a new repository&lt;/strong&gt;&lt;/em&gt; page, specify a name for your name repository. Then select &lt;em&gt;&lt;strong&gt;Create repository&lt;/strong&gt;&lt;/em&gt;.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://domzlab.com/img/create_website_blog/2_create_repository.png&quot; alt=&quot;create new repository from template&quot;&gt;&lt;/p&gt;
-&lt;h2 id=&quot;clone-repository-and-run-server-locally&quot; tabindex=&quot;-1&quot;&gt;Clone repository and run server locally &lt;a class=&quot;header-anchor&quot; href=&quot;https://domzlab.com/blog/create-website/&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;&lt;picture&gt;&lt;source type=&quot;image/avif&quot; srcset=&quot;https://domzlab.com/eleventy-base-blog/img/4WGx_QBXo7-726.avif 726w&quot;&gt;&lt;source type=&quot;image/webp&quot; srcset=&quot;https://domzlab.com/eleventy-base-blog/img/4WGx_QBXo7-726.webp 726w&quot;&gt;&lt;img loading=&quot;lazy&quot; decoding=&quot;async&quot; src=&quot;https://domzlab.com/eleventy-base-blog/img/4WGx_QBXo7-726.png&quot; alt=&quot;create new repository from template&quot; width=&quot;726&quot; height=&quot;726&quot;&gt;&lt;/picture&gt;&lt;/p&gt;
+&lt;h3 id=&quot;clone-repository-and-run-server-locally&quot;&gt;Clone repository and run server locally&lt;/h3&gt;
 &lt;p&gt;On your local machine, clone the newly created repository in a directory on your choice.&lt;/p&gt;
 &lt;p&gt;Command to clone respository to your local machine: &lt;strong&gt;&lt;code&gt;git clone git@github.com:&amp;lt;USER-NAME&amp;gt;/&amp;lt;REPOSITORY-NAME&amp;gt;.git&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Before we begin modifying the code, first, we shall run the server locally. Run &lt;strong&gt;&lt;code&gt;npm install&lt;/code&gt;&lt;/strong&gt; to install the depdencies.&lt;/p&gt;
 &lt;p&gt;Thereafrer, to run the server locally, run &lt;strong&gt;&lt;code&gt;npm start&lt;/code&gt;&lt;/strong&gt;.&lt;/p&gt;
-&lt;h2 id=&quot;update-code-base&quot; tabindex=&quot;-1&quot;&gt;Update code base &lt;a class=&quot;header-anchor&quot; href=&quot;https://domzlab.com/blog/create-website/&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;h3 id=&quot;update-code-base&quot;&gt;Update code base&lt;/h3&gt;
 &lt;p&gt;In package.json, update the pathprefix seen in the &lt;strong&gt;build-ghpages&lt;/strong&gt; script to be the same as your respository name:&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;&amp;quot;build-ghpages&amp;quot;: &amp;quot;npx @11ty/eleventy --pathprefix=/noname-blog/&amp;quot;
 &lt;/code&gt;&lt;/pre&gt;
@@ -445,33 +442,33 @@ server&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span cla
         &lt;span class=&quot;token key atrule&quot;&gt;with&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
           &lt;span class=&quot;token key atrule&quot;&gt;publish_dir&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; ./_site
           &lt;span class=&quot;token key atrule&quot;&gt;github_token&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; $&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; secrets.GITHUB_TOKEN &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id=&quot;deploy-code&quot; tabindex=&quot;-1&quot;&gt;Deploy Code &lt;a class=&quot;header-anchor&quot; href=&quot;https://domzlab.com/blog/create-website/&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;h3 id=&quot;deploy-code&quot;&gt;Deploy Code&lt;/h3&gt;
 &lt;p&gt;After making the above changes, deploy your code:&lt;/p&gt;
 &lt;pre class=&quot;language-sh&quot; tabindex=&quot;0&quot;&gt;&lt;code class=&quot;language-sh&quot;&gt;&lt;span class=&quot;token function&quot;&gt;git&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;add&lt;/span&gt; &lt;span class=&quot;token parameter variable&quot;&gt;-A&lt;/span&gt;
 &lt;span class=&quot;token function&quot;&gt;git&lt;/span&gt; commit &lt;span class=&quot;token parameter variable&quot;&gt;-m&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;Update package.json. Add build file.&quot;&lt;/span&gt;
 &lt;span class=&quot;token function&quot;&gt;git&lt;/span&gt; push&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;After running the above, navigate to your github respository on github.com. You should then see a red x next to the short code of your most recent commit. You may need to wait for a few more minutes to see this.&lt;/p&gt;
 &lt;p&gt;The red x indicates that there was an issue with your most recent build. Select the red x to see more details.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://domzlab.com/img/create_website_blog/4_check_build_result.png&quot; alt=&quot;Build failure about code push&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;picture&gt;&lt;source type=&quot;image/avif&quot; srcset=&quot;https://domzlab.com/eleventy-base-blog/img/JqFE8-X5Hx-1192.avif 1192w&quot;&gt;&lt;source type=&quot;image/webp&quot; srcset=&quot;https://domzlab.com/eleventy-base-blog/img/JqFE8-X5Hx-1192.webp 1192w&quot;&gt;&lt;img loading=&quot;lazy&quot; decoding=&quot;async&quot; src=&quot;https://domzlab.com/eleventy-base-blog/img/JqFE8-X5Hx-1192.png&quot; alt=&quot;Build failure about code push&quot; width=&quot;1192&quot; height=&quot;301&quot;&gt;&lt;/picture&gt;&lt;/p&gt;
 &lt;p&gt;When you select &lt;strong&gt;Details&lt;/strong&gt;, this will take you to the Actions tab, and provide more details regarding why the build failed. In this case, a 403 error was being returned.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://domzlab.com/img/create_website_blog/5_build_failed.png&quot; alt=&quot;Build failure about code push&quot;&gt;&lt;/p&gt;
-&lt;h2 id=&quot;update-permissions&quot; tabindex=&quot;-1&quot;&gt;Update Permissions &lt;a class=&quot;header-anchor&quot; href=&quot;https://domzlab.com/blog/create-website/&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;&lt;picture&gt;&lt;source type=&quot;image/avif&quot; srcset=&quot;https://domzlab.com/eleventy-base-blog/img/VBDdFg1wUG-917.avif 917w&quot;&gt;&lt;source type=&quot;image/webp&quot; srcset=&quot;https://domzlab.com/eleventy-base-blog/img/VBDdFg1wUG-917.webp 917w&quot;&gt;&lt;img loading=&quot;lazy&quot; decoding=&quot;async&quot; src=&quot;https://domzlab.com/eleventy-base-blog/img/VBDdFg1wUG-917.png&quot; alt=&quot;Build failure about code push&quot; width=&quot;917&quot; height=&quot;320&quot;&gt;&lt;/picture&gt;&lt;/p&gt;
+&lt;h3 id=&quot;update-permissions&quot;&gt;Update Permissions&lt;/h3&gt;
 &lt;p&gt;To resolve the error, you will need to go to Settings →  Action → General  →  Workflow permissions  → choose &lt;strong&gt;read and write permissions&lt;/strong&gt; [1].&lt;/p&gt;
 &lt;p&gt;Thereafter, re-run your failed build job. To do this, go to Actions, and under All workflow, you should see the build that failed. This would have the same value/name used in your commit message. In my case, this was &lt;strong&gt;Update package.json. Add build file&lt;/strong&gt;. The name of the workflow that run would be the same as the commit message.&lt;/p&gt;
 &lt;p&gt;Now, select the workflow that failed to run, then seelect Re-run all jobs. Therefore, the build should complete successfully.&lt;/p&gt;
 &lt;p&gt;What you will see is that a new branch named gh-pages got create. This will be branch specified when configuring github pages as described further below.&lt;/p&gt;
-&lt;h2 id=&quot;enable-github-pages&quot; tabindex=&quot;-1&quot;&gt;Enable GitHub Pages &lt;a class=&quot;header-anchor&quot; href=&quot;https://domzlab.com/blog/create-website/&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;h3 id=&quot;enable-github-pages&quot;&gt;Enable GitHub Pages&lt;/h3&gt;
 &lt;p&gt;To enable GitHub pages on your GitHub repository, navigate to your respository, and select the &lt;strong&gt;Settings&lt;/strong&gt;. From the left navigation menu, select &lt;strong&gt;Pages&lt;/strong&gt;.&lt;/p&gt;
 &lt;p&gt;On the &lt;strong&gt;GitHub Pages&lt;/strong&gt; settings page that appears, configure the following:&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;Source: Deploy from Branch
 Branch: gh-pages
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Then select save. After some time (waited for a minute or so on my end), refresh the page, and you should then be able to see the link to your static website&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://domzlab.com/img/create_website_blog/7_github_pages_link.png&quot; alt=&quot;GitHub pages link&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;picture&gt;&lt;source type=&quot;image/avif&quot; srcset=&quot;https://domzlab.com/eleventy-base-blog/img/T02s6zsUCW-817.avif 817w&quot;&gt;&lt;source type=&quot;image/webp&quot; srcset=&quot;https://domzlab.com/eleventy-base-blog/img/T02s6zsUCW-817.webp 817w&quot;&gt;&lt;img loading=&quot;lazy&quot; decoding=&quot;async&quot; src=&quot;https://domzlab.com/eleventy-base-blog/img/T02s6zsUCW-817.png&quot; alt=&quot;GitHub pages link&quot; width=&quot;817&quot; height=&quot;484&quot;&gt;&lt;/picture&gt;&lt;/p&gt;
 &lt;p&gt;With that, you have deployed an 11ty website hosted on GitHub pages. You site would look similar to the one shown below.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://domzlab.com/img/create_website_blog/8_11ty_site.png&quot; alt=&quot;11ty site&quot;&gt;&lt;/p&gt;
-&lt;h2 id=&quot;references&quot; tabindex=&quot;-1&quot;&gt;References &lt;a class=&quot;header-anchor&quot; href=&quot;https://domzlab.com/blog/create-website/&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;&lt;picture&gt;&lt;source type=&quot;image/avif&quot; srcset=&quot;https://domzlab.com/eleventy-base-blog/img/p78qx1KRwH-1272.avif 1272w&quot;&gt;&lt;source type=&quot;image/webp&quot; srcset=&quot;https://domzlab.com/eleventy-base-blog/img/p78qx1KRwH-1272.webp 1272w&quot;&gt;&lt;img loading=&quot;lazy&quot; decoding=&quot;async&quot; src=&quot;https://domzlab.com/eleventy-base-blog/img/p78qx1KRwH-1272.png&quot; alt=&quot;11ty site&quot; width=&quot;1272&quot; height=&quot;667&quot;&gt;&lt;/picture&gt;&lt;/p&gt;
+&lt;h3 id=&quot;references&quot;&gt;References&lt;/h3&gt;
 &lt;p&gt;[1] “Permission denied to github-actions[bot]. The requested URL returned error: 403,” Stack Overflow. https://stackoverflow.com/questions/73687176/permission-denied-to-github-actionsbot-the-requested-url-returned-error-403 (accessed Sep. 05, 2023).&lt;/p&gt;
 </content>
-	</entry>
+  </entry>
 </feed>

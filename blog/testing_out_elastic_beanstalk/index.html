@@ -4,11 +4,534 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>Deploying a NodeJs application on Elastic Beanstalk</title>
-		<meta name="description" content="A blog where I write about things that I am learning.">
-		<link rel="alternate" href="/feed/feed.xml" type="application/atom+xml" title="domzlab">
-		<link rel="alternate" href="/feed/feed.json" type="application/json" title="domzlab">
+		<meta name="description" content="A hub for creative experiments, state-of-the-art designs, and technical logs.">
 		
-		<style>/**
+		<!-- Google Fonts for Premium Typography -->
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+		<link rel="alternate" href="/eleventy-base-blog/feed/feed.xml" type="application/atom+xml" title="domzlab">
+		
+		
+		
+		<style>/* This is an arbitrary CSS string added to the bundle */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap');
+
+/* CSS Variables for Premium Adaptive Theme */
+:root {
+	--bg-gradient: linear-gradient(135deg, #050a14 0%, #0c1627 100%);
+	--card-bg: rgba(16, 28, 48, 0.45);
+	--card-border: rgba(255, 255, 255, 0.05);
+	--card-hover-border: rgba(43, 123, 196, 0.35);
+	--text-primary: #f1f5f9;
+	--text-secondary: #94a3b8;
+	
+	--accent-primary: #2b7bc4; /* Reef Blue Light */
+	--accent-secondary: #749bc2; /* Slate Blue Light */
+	--accent-gradient: linear-gradient(135deg, #2b7bc4 0%, #749bc2 100%);
+	
+	--text-link: #38bdf8;
+	--text-link-hover: #749bc2;
+	--font-family: 'Inter', -apple-system, sans-serif;
+	--font-family-header: 'Outfit', -apple-system, sans-serif;
+	--font-family-monospace: Consolas, Menlo, Monaco, monospace;
+	--shadow-glow: 0 0 30px rgba(43, 123, 196, 0.15);
+	--container-width: 52rem;
+	
+	--syntax-tab-size: 2;
+}
+
+@media (prefers-color-scheme: light) {
+	:root {
+		--bg-gradient: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+		--card-bg: rgba(255, 255, 255, 0.7);
+		--card-border: rgba(15, 23, 42, 0.06);
+		--card-hover-border: rgba(10, 71, 125, 0.3);
+		--text-primary: #0f172a;
+		--text-secondary: #334155;
+		
+		--accent-primary: #0a477d; /* Reef Blue */
+		--accent-secondary: #35516d; /* Slate Blue */
+		--accent-gradient: linear-gradient(135deg, #0a477d 0%, #35516d 100%);
+		
+		--text-link: #0284c7;
+		--text-link-hover: #0a477d;
+		--shadow-glow: 0 10px 30px rgba(10, 71, 125, 0.08);
+	}
+}
+
+/* Base resets & layouts */
+* {
+	box-sizing: border-box;
+}
+
+@view-transition {
+	navigation: auto;
+}
+
+html {
+	overflow-y: scroll;
+	scroll-behavior: smooth;
+}
+
+html,
+body {
+	padding: 0;
+	margin: 0;
+	font-family: var(--font-family);
+	color: var(--text-primary);
+	background: var(--bg-gradient);
+	background-attachment: fixed;
+	min-height: 100vh;
+	line-height: 1.6;
+}
+
+body {
+	max-width: var(--container-width);
+	margin: 0 auto;
+	padding: 0 1.5rem;
+	position: relative;
+}
+
+/* Ambient glow blobs in the background */
+body::before {
+	content: "";
+	position: fixed;
+	top: -10%;
+	left: -10%;
+	width: 50vw;
+	height: 50vw;
+	background: radial-gradient(circle, rgba(43, 123, 196, 0.06) 0%, rgba(0,0,0,0) 70%);
+	z-index: -1;
+	pointer-events: none;
+	border-radius: 50%;
+}
+
+body::after {
+	content: "";
+	position: fixed;
+	bottom: -10%;
+	right: -10%;
+	width: 60vw;
+	height: 60vw;
+	background: radial-gradient(circle, rgba(116, 155, 194, 0.06) 0%, rgba(0,0,0,0) 70%);
+	z-index: -1;
+	pointer-events: none;
+	border-radius: 50%;
+}
+
+/* A11y skip link */
+.visually-hidden:not(:focus):not(:active) {
+	clip: rect(0 0 0 0);
+	clip-path: inset(50%);
+	height: 1px;
+	overflow: hidden;
+	position: absolute;
+	white-space: nowrap;
+	width: 1px;
+}
+
+#skip-link {
+	text-decoration: none;
+	background: var(--card-bg);
+	border: 1px solid var(--card-border);
+	backdrop-filter: blur(10px);
+	color: var(--text-primary);
+	padding: 0.6rem 1.2rem;
+	border-radius: 8px;
+	font-weight: 500;
+}
+
+#skip-link.visually-hidden:focus {
+	position: absolute;
+	top: 1rem;
+	left: 1rem;
+	z-index: 999;
+}
+
+/* Fluid media */
+img {
+	max-width: 100%;
+	border-radius: 12px;
+	box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+}
+img[width][height] {
+	height: auto;
+}
+img[src$=".svg"] {
+	width: 100%;
+	height: auto;
+	max-width: none;
+}
+video,
+iframe {
+	width: 100%;
+	height: auto;
+	border-radius: 12px;
+	box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+}
+iframe {
+	aspect-ratio: 16/9;
+}
+
+/* Typography styles */
+h1, h2, h3, h4, h5, h6 {
+	font-family: var(--font-family-header);
+	color: var(--accent-primary);
+	font-weight: 700;
+	letter-spacing: -0.02em;
+	margin-top: 2.5rem;
+	margin-bottom: 1.25rem;
+	line-height: 1.25;
+}
+
+h1 {
+	font-size: 2.8rem;
+	font-weight: 800;
+	background: var(--accent-gradient);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	margin-top: 1.5rem;
+	margin-bottom: 2rem;
+}
+
+h2 {
+	font-size: 2rem;
+	border-bottom: 1px solid var(--card-border);
+	padding-bottom: 0.5rem;
+	margin-top: 3rem;
+}
+
+h3 {
+	font-size: 1.5rem;
+}
+
+p {
+	margin-top: 0;
+	margin-bottom: 1.25rem;
+}
+p:last-child {
+	margin-bottom: 0;
+}
+
+li {
+	margin-bottom: 0.5rem;
+}
+
+a {
+	color: var(--text-link);
+	text-decoration: none;
+	transition: color 0.2s ease, text-shadow 0.2s ease;
+}
+
+a:hover {
+	color: var(--text-link-hover);
+}
+
+main,
+footer {
+	padding: 1.5rem 0;
+}
+
+main :first-child {
+	margin-top: 0;
+}
+
+/* Header style - Glassmorphic */
+header {
+	display: flex;
+	gap: 1.5rem;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	align-items: center;
+	padding: 1.25rem 2rem;
+	margin-top: 1.5rem;
+	margin-bottom: 2.5rem;
+	background: var(--card-bg);
+	border: 1px solid var(--card-border);
+	backdrop-filter: blur(16px);
+	-webkit-backdrop-filter: blur(16px);
+	border-radius: 16px;
+	box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+	position: sticky;
+	top: 1rem;
+	z-index: 100;
+}
+
+.home-link {
+	font-family: var(--font-family-header);
+	font-size: 1.6rem;
+	font-weight: 800;
+	letter-spacing: -0.04em;
+	background: var(--accent-gradient);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	text-decoration: none;
+	transition: opacity 0.3s ease;
+}
+
+.home-link:hover {
+	opacity: 0.85;
+}
+
+/* Main Navigation */
+.nav {
+	display: flex;
+	gap: 1.5rem;
+	padding: 0;
+	margin: 0;
+	list-style: none;
+	align-items: center;
+}
+
+.nav-item a {
+	font-family: var(--font-family-header);
+	font-weight: 550;
+	font-size: 0.98rem;
+	color: var(--text-primary);
+	text-decoration: none;
+	position: relative;
+	padding: 0.25rem 0;
+	transition: color 0.3s ease;
+}
+
+.nav-item a:hover {
+	color: var(--accent-primary);
+}
+
+.nav-item a::after {
+	content: "";
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: 2px;
+	background: var(--accent-gradient);
+	transform: scaleX(0);
+	transform-origin: right;
+	transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.nav-item a:hover::after,
+.nav-item a[aria-current="page"]::after {
+	transform: scaleX(1);
+	transform-origin: left;
+}
+
+.nav-item a[aria-current="page"] {
+	color: var(--accent-primary);
+}
+
+/* Post lists (Cards layout) */
+.postlist {
+	counter-reset: start-from var(--postlist-index);
+	list-style: none;
+	padding: 0;
+	margin: 2.5rem 0;
+	display: flex;
+	flex-direction: column;
+	gap: 1.5rem;
+}
+
+.postlist-item {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 0.6rem;
+	counter-increment: start-from -1;
+	padding: 1.5rem 1.75rem 1.5rem 4rem;
+	background: var(--card-bg);
+	border: 1px solid var(--card-border);
+	border-radius: 16px;
+	transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), 
+	            border-color 0.3s ease, 
+	            box-shadow 0.3s ease;
+	backdrop-filter: blur(12px);
+	-webkit-backdrop-filter: blur(12px);
+}
+
+.postlist-item:hover {
+	transform: translateY(-5px);
+	border-color: var(--card-hover-border);
+	box-shadow: var(--shadow-glow);
+}
+
+/* Custom styled numeric list counters */
+.postlist-item::before {
+	position: absolute;
+	left: 1.5rem;
+	top: 1.5rem;
+	font-family: var(--font-family-header);
+	font-weight: 800;
+	font-size: 1.15rem;
+	content: counter(start-from, decimal-leading-zero);
+	background: var(--accent-gradient);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	opacity: 0.8;
+}
+
+.postlist-link {
+	font-family: var(--font-family-header);
+	font-size: 1.35rem;
+	font-weight: 700;
+	color: var(--text-primary);
+	text-decoration: none;
+	line-height: 1.35;
+	transition: color 0.2s ease;
+}
+
+.postlist-link:hover {
+	color: var(--accent-primary);
+}
+
+.postlist-date {
+	font-size: 0.85rem;
+	color: var(--text-secondary);
+	font-weight: 500;
+	letter-spacing: 0.02em;
+}
+
+/* Post Details & Tags */
+.post-metadata {
+	display: inline-flex;
+	flex-wrap: wrap;
+	gap: 0.75rem;
+	list-style: none;
+	padding: 0;
+	margin: 0.5rem 0 2rem 0;
+	align-items: center;
+}
+
+.post-metadata time {
+	color: var(--text-secondary);
+	font-size: 0.9rem;
+	margin-right: 0.5rem;
+}
+
+.post-tag {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding: 0.3rem 0.8rem;
+	font-size: 0.78rem;
+	font-weight: 650;
+	text-transform: uppercase;
+	letter-spacing: 0.06em;
+	border-radius: 30px;
+	background: rgba(43, 123, 196, 0.08);
+	border: 1px solid rgba(43, 123, 196, 0.15);
+	color: var(--accent-primary);
+	text-decoration: none;
+	transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.post-tag:hover {
+	background: var(--accent-gradient);
+	color: #ffffff !important;
+	border-color: transparent;
+	box-shadow: 0 0 15px rgba(43, 123, 196, 0.35);
+	transform: translateY(-2px);
+}
+
+/* Tables styling */
+table {
+	width: 100%;
+	margin: 2rem 0;
+	border-collapse: collapse;
+}
+
+table th,
+table td {
+	padding: 0.8rem 1rem;
+	text-align: left;
+	border-bottom: 1px solid var(--card-border);
+}
+
+table th {
+	font-family: var(--font-family-header);
+	font-weight: 600;
+	color: var(--text-primary);
+}
+
+/* Code & Syntax Highlighting Overrides */
+pre,
+code {
+	font-family: var(--font-family-monospace);
+	font-size: 0.92rem;
+}
+
+pre {
+	margin: 2rem 0;
+	padding: 1.25rem 1.5rem;
+	background: rgba(10, 10, 18, 0.9) !important;
+	border: 1px solid var(--card-border);
+	border-radius: 14px;
+	overflow-x: auto;
+	box-shadow: inset 0 2px 10px rgba(0,0,0,0.5);
+}
+
+code:not(pre code) {
+	background: rgba(43, 123, 196, 0.08);
+	border: 1px solid rgba(43, 123, 196, 0.15);
+	color: var(--accent-primary);
+	padding: 0.2rem 0.45rem;
+	border-radius: 6px;
+	font-size: 0.9em;
+}
+
+/* Prev/Next Navigation Links */
+.links-nextprev {
+	display: flex;
+	justify-content: space-between;
+	gap: 1rem;
+	list-style: none;
+	padding: 1.5rem 0;
+	margin-top: 3rem;
+	border-top: 1px solid var(--card-border);
+}
+
+.links-nextprev > * {
+	flex-grow: 1;
+}
+
+.links-nextprev-next {
+	text-align: right;
+}
+
+.links-nextprev a {
+	display: inline-block;
+	padding: 0.75rem 1.25rem;
+	background: var(--card-bg);
+	border: 1px solid var(--card-border);
+	border-radius: 12px;
+	font-weight: 500;
+	transition: all 0.3s ease;
+}
+
+.links-nextprev a:hover {
+	border-color: var(--accent-primary);
+	color: var(--accent-primary);
+	box-shadow: 0 0 15px rgba(43, 123, 196, 0.1);
+	transform: translateY(-2px);
+}
+
+/* Footer Styling */
+footer {
+	margin-top: 5rem;
+	border-top: 1px solid var(--card-border);
+	padding: 2.5rem 0;
+	text-align: center;
+	font-size: 0.9rem;
+	color: var(--text-secondary);
+}
+
+footer p {
+	margin: 0;
+}
+/**
  * okaidia theme for JavaScript, CSS and HTML
  * Loosely based on Monokai textmate theme by http://www.monokai.nl/
  * @author ocodia
@@ -175,348 +698,42 @@ pre[class*="language-diff-"] {
 	margin-right: calc(-1 * var(--eleventy-code-padding));
 	text-decoration: none; /* override del, ins, mark defaults */
 	color: inherit; /* override del, ins, mark defaults */
-}
-* { box-sizing: border-box; }
-/* Defaults */
-:root {
-	--font-family: -apple-system, system-ui, sans-serif;
-	--font-family-monospace: Consolas, Menlo, Monaco, Andale Mono WT, Andale Mono, Lucida Console, Lucida Sans Typewriter, DejaVu Sans Mono, Bitstream Vera Sans Mono, Liberation Mono, Nimbus Mono L, Courier New, Courier, monospace;
-}
-
-/* Theme colors */
-:root {
-	--color-gray-20: #e0e0e0;
-	--color-gray-50: #C0C0C0;
-	--color-gray-90: #333;
-
-	--background-color: #CCC9DC;
-
-	--text-color: var(--color-gray-90);
-	--text-color-link: #082840;
-	--text-color-link-active: #5f2b48;
-	--text-color-link-visited: #17050F;
-
-	--syntax-tab-size: 2;
-}
-
-/* @media (prefers-color-scheme: dark) {
-	:root {
-		--color-gray-20: #e0e0e0;
-		--color-gray-50: #C0C0C0;
-		--color-gray-90: #dad8d8;
-
-		/* --text-color is assigned to --color-gray-_ above */
---text-color-link: #1493fb;
---text-color-link-active: #6969f7;
---text-color-link-visited: #a6a6f8;
-
---background-color: #15202b;
---background-color: #CCC9DC;
-}
-}
-
-*/
-
-/* Global stylesheet */
-* {
-	box-sizing: border-box;
-}
-
-html,
-body {
-	padding: 0;
-	margin: 0 auto;
-	font-family: var(--font-family);
-	color: var(--text-color);
-	background-color: var(--background-color);
-}
-
-html {
-	overflow-y: scroll;
-}
-
-body {
-	max-width: 60em;
-}
-
-/* https://www.a11yproject.com/posts/how-to-hide-content/ */
-.visually-hidden {
-	clip: rect(0 0 0 0);
-	clip-path: inset(50%);
-	height: 1px;
-	overflow: hidden;
-	position: absolute;
-	white-space: nowrap;
-	width: 1px;
-}
-
-p:last-child {
-	margin-bottom: 0;
-}
-
-p {
-	line-height: 1.5;
-}
-
-li {
-	line-height: 1.5;
-}
-
-a[href] {
-	color: var(--text-color-link);
-}
-
-a[href]:visited {
-	color: var(--text-color-link-visited);
-}
-
-a[href]:hover,
-a[href]:active {
-	color: var(--text-color-link-active);
-}
-
-main {
-	padding: 1rem;
-}
-
-main :first-child {
-	margin-top: 0;
-}
-
-header {
-	border-bottom: 1px solid var(--color-gray-90);
-}
-
-header:after {
-	content: "";
-	display: table;
-	clear: both;
-}
-
-.links-nextprev {
-	list-style: none;
-	border-top: 1px solid var(--color-gray-20);
-	padding: 1em 0;
-}
-
-table {
-	margin: 1em 0;
-}
-
-table td,
-table th {
-	padding-right: 1em;
-}
-
-pre,
-code {
-	font-family: var(--font-family-monospace);
-}
-
-pre:not([class*="language-"]) {
-	margin: .5em 0;
-	line-height: 1.375;
-	/* 22px /16 */
-	-moz-tab-size: var(--syntax-tab-size);
-	-o-tab-size: var(--syntax-tab-size);
-	tab-size: var(--syntax-tab-size);
-	-webkit-hyphens: none;
-	-ms-hyphens: none;
-	hyphens: none;
-	direction: ltr;
-	text-align: left;
-	white-space: pre;
-	word-spacing: normal;
-	word-break: normal;
-}
-
-code {
-	word-break: break-all;
-}
-
-/* Header */
-header {
-	display: flex;
-	gap: 1em .5em;
-	flex-wrap: wrap;
-	align-items: center;
-	padding: 1em;
-}
-
-.home-link {
-	font-size: 1em;
-	/* 16px /16 */
-	font-weight: 700;
-	margin-right: 2em;
-}
-
-.home-link:link:not(:hover) {
-	text-decoration: none;
-}
-
-/* Nav */
-.nav {
-	display: flex;
-	padding: 0;
-	margin: 0;
-	list-style: none;
-}
-
-.nav-item {
-	display: inline-block;
-	margin-right: 1em;
-}
-
-.nav-item a[href]:not(:hover) {
-	text-decoration: none;
-}
-
-.nav a[href][aria-current="page"] {
-	text-decoration: underline;
-}
-
-/* Posts list */
-.postlist {
-	list-style: none;
-	padding: 0;
-	padding-left: 1.5rem;
-}
-
-.postlist-item {
-	display: flex;
-	flex-wrap: wrap;
-	align-items: baseline;
-	counter-increment: start-from -1;
-	margin-bottom: 1em;
-}
-
-.postlist-item:before {
-	display: inline-block;
-	pointer-events: none;
-	content: "" counter(start-from, decimal-leading-zero) ". ";
-	line-height: 100%;
-	text-align: right;
-	margin-left: -1.5rem;
-}
-
-.postlist-date,
-.postlist-item:before {
-	font-size: 0.8125em;
-	/* 13px /16 */
-	color: var(--color-gray-90);
-}
-
-.postlist-date {
-	word-spacing: -0.5px;
-}
-
-.postlist-link {
-	font-size: 1.1875em;
-	/* 19px /16 */
-	font-weight: 700;
-	flex-basis: calc(100% - 1.5rem);
-	padding-left: .25em;
-	padding-right: .5em;
-	text-underline-position: from-font;
-	text-underline-offset: 0;
-	text-decoration-thickness: 1px;
-}
-
-.postlist-item-active .postlist-link {
-	font-weight: bold;
-}
-
-/* Tags */
-.post-tag {
-	display: inline-flex;
-	align-items: center;
-	justify-content: center;
-	text-transform: capitalize;
-	font-style: italic;
-}
-
-.postlist-item>.post-tag {
-	align-self: center;
-}
-
-/* Tags list */
-.post-metadata {
-	display: inline-flex;
-	flex-wrap: wrap;
-	gap: .5em;
-	list-style: none;
-	padding: 0;
-	margin: 0;
-}
-
-.post-metadata time {
-	margin-right: 1em;
-}
-
-/* Direct Links / Markdown Headers */
-.header-anchor {
-	text-decoration: none;
-	font-style: normal;
-	font-size: 1em;
-	margin-left: .1em;
-}
-
-a[href].header-anchor,
-a[href].header-anchor:visited {
-	color: transparent;
-}
-
-a[href].header-anchor:focus,
-a[href].header-anchor:hover {
-	text-decoration: underline;
-}
-
-a[href].header-anchor:focus,
-:hover>a[href].header-anchor {
-	color: #aaa;
-}
-
-h2+.header-anchor {
-	font-size: 1.5em;
-}
-
-img {
-	display: block;
-	margin-left: auto;
-	margin-right: auto;
-	width: 100%;
-	object-fit: contain;
 }</style>
+		
 	</head>
 	<body>
-		<a href="#skip" class="visually-hidden">Skip to main content</a>
+		<a href="#main" id="skip-link" class="visually-hidden">Skip to main content</a>
 
 		<header>
-			<a href="/" class="home-link">domzlab</a>
+			<a href="/eleventy-base-blog/" class="home-link">domzlab</a>
 			<nav>
-				<h2 class="visually-hidden">Top level navigation menu</h2>
+				<h2 class="visually-hidden" id="top-level-navigation-menu">Top level navigation menu</h2>
 				<ul class="nav">
-					<li class="nav-item"><a href="/">Home</a></li>
-					<li class="nav-item"><a href="/blog/">Archive</a></li>
-					<li class="nav-item"><a href="/about/">About Me</a></li>
+					<li class="nav-item"><a href="/eleventy-base-blog/">Home</a></li>
+					<li class="nav-item"><a href="/eleventy-base-blog/blog/">Archive</a></li>
+					<li class="nav-item"><a href="/eleventy-base-blog/about/">About</a></li>
+					<li class="nav-item"><a href="/eleventy-base-blog/feed/feed.xml">Feed</a></li>
 				</ul>
 			</nav>
 		</header>
 
-		<main id="skip">
-			
-<h1>Deploying a NodeJs application on Elastic Beanstalk</h1>
+		<main id="main">
+			<heading-anchors>
+				
+
+
+<h1 id="deploying-a-nodejs-application-on-elastic-beanstalk">Deploying a NodeJs application on Elastic Beanstalk</h1>
 
 <ul class="post-metadata">
 	<li><time datetime="2023-12-04">04 December 2023</time></li>
-	<li><a href="/tags/elastic-beanlstak/" class="post-tag">Elastic Beanlstak</a>, </li>
-	<li><a href="/tags/nodejs/" class="post-tag">NodeJs</a></li>
+	<li><a href="/eleventy-base-blog/tags/elastic-beanlstak/" class="post-tag">Elastic Beanlstak</a>, </li>
+	<li><a href="/eleventy-base-blog/tags/nodejs/" class="post-tag">NodeJs</a></li>
 </ul>
 
-<h2 id="introduction" tabindex="-1">Introduction <a class="header-anchor" href="#introduction">#</a></h2>
+<h2 id="introduction">Introduction</h2>
 <p>I've recently started preparing for the AWS Certified DevOps Engineer Professional Exam. I'm currently studying through a course on ACloudGuru that helps you prepare to sit for the exam.</p>
 <p>One of the topics covered in this course is Elastic Beanstalk. In my work as Cloud Support Engineer, I have yet come encounter a situation where I need to troubleshoot issues with this service. Thus, to get a general idea of how this service works, I thought it would be a good idea to see how one would go about deploying a NodeJs application on Elastic Beanstalk.</p>
-<h2 id="setting-up-my-development-environment" tabindex="-1">Setting up my Development Environment <a class="header-anchor" href="#setting-up-my-development-environment">#</a></h2>
+<h2 id="setting-up-my-development-environment">Setting up my Development Environment</h2>
 <p>To create and deploy updates to an Elastic Beanstalk environment, I was using Elastic Beanstalk Command Line Interface (EB CLI) is a command line client. I used the setup scripts seen in [1] to install the EB CLI to my local machine.</p>
 <p>To get started, I created a new directory for your project files. In the newly created directory, I then added an index.js file. Below are the commands I used to do this from command line.</p>
 <pre class="language-sh" tabindex="0"><code class="language-sh"><span class="token function">mkdir</span> simple-app
@@ -569,7 +786,7 @@ Cannot setup CodeCommit because there is no Source Control setup, continuing wit
 Do you want to <span class="token builtin class-name">set</span> up SSH <span class="token keyword">for</span> your instances?
 <span class="token punctuation">(</span>Y/n<span class="token punctuation">)</span>: n</code></pre>
 <p>Note, you would type the number you want to select, then hit enter to move to the next option.</p>
-<h2 id="application-code" tabindex="-1">Application Code <a class="header-anchor" href="#application-code">#</a></h2>
+<h2 id="application-code">Application Code</h2>
 <p>Still in the simple-app directory, I created a file named index.js. I used code below:</p>
 <pre class="language-js" tabindex="0"><code class="language-js"><span class="token keyword">const</span> http <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">"http"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token keyword">const</span> host <span class="token operator">=</span> <span class="token string">'localhost'</span><span class="token punctuation">;</span>
@@ -589,7 +806,7 @@ server<span class="token punctuation">.</span><span class="token function">liste
 <pre class="language-sh" tabindex="0"><code class="language-sh">$ <span class="token function">curl</span> localhost:8080
 
 Hello World<span class="token operator">!</span></code></pre>
-<h2 id="deploy-first-build-of-application" tabindex="-1">Deploy first build of application <a class="header-anchor" href="#deploy-first-build-of-application">#</a></h2>
+<h2 id="deploy-first-build-of-application">Deploy first build of application</h2>
 <p>To deploy this application to elastic beanstalk, run <code>eb create</code>. I used the default values for each option in the command prompt:</p>
 <pre class="language-sh" tabindex="0"><code class="language-sh">$ eb create
 
@@ -619,7 +836,7 @@ ERROR: ServiceError - Create environment operation is complete, but with errors.
 <pre class="language-text" tabindex="0"><code class="language-text">### Contents of Procfile
 
 web: node index.js</code></pre>
-<h2 id="deploy-new-revision-of-application" tabindex="-1">Deploy new revision of application <a class="header-anchor" href="#deploy-new-revision-of-application">#</a></h2>
+<h2 id="deploy-new-revision-of-application">Deploy new revision of application</h2>
 <p>I then ran <code>eb deploy</code> to deploy a new revision of my application.</p>
 <p>After adding the Procfile to my project, the deployment completed successfully.</p>
 <pre class="language-sh" tabindex="0"><code class="language-sh">$ eb deploy
@@ -633,7 +850,7 @@ Upload Complete.
 <span class="token number">2023</span>-12-04 <span class="token number">12</span>:14:19    INFO    New application version was deployed to running EC2 instances.
 <span class="token number">2023</span>-12-04 <span class="token number">12</span>:14:19    INFO    Environment update completed successfully.</code></pre>
 <p>To view an EB application, you can run <code>eb open</code>. This should open the application URL in a browser. Alternatively, run <code>eb status</code>. In the command output, you would see the CNAME, is the unique URL to access to your Elastic Beanstalk application.</p>
-<h2 id="final-update-to-application" tabindex="-1">Final update to application <a class="header-anchor" href="#final-update-to-application">#</a></h2>
+<h2 id="final-update-to-application">Final update to application</h2>
 <p>To end off, I made one more change to my index.js file. As seen below, I updated my source code to return the request headers as an HTML response.</p>
 <pre class="language-js" tabindex="0"><code class="language-js"><span class="token keyword">const</span> http <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">"http"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token keyword">const</span> host <span class="token operator">=</span> <span class="token string">'localhost'</span><span class="token punctuation">;</span>
@@ -660,20 +877,26 @@ server<span class="token punctuation">.</span><span class="token function">liste
 <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <p>As before, I ran <code>eb deploy</code> to deploy a new revision. Once the deployment completed successfully, I used the CNAME of my EB application test the request on my web browser.</p>
-<p><img src="/img/test_out_elastic_beanstalk/1_view_response_in_browser.png" alt=""></p>
+<p><picture><source type="image/avif" srcset="/eleventy-base-blog/img/ysdrVO6WF6-1039.avif 1039w"><source type="image/webp" srcset="/eleventy-base-blog/img/ysdrVO6WF6-1039.webp 1039w"><img loading="lazy" decoding="async" src="/eleventy-base-blog/img/ysdrVO6WF6-1039.png" alt="" width="1039" height="497"></picture></p>
 <p>Thank you for reading.</p>
-<h2 id="references" tabindex="-1">References: <a class="header-anchor" href="#references">#</a></h2>
+<h2 id="references">References:</h2>
 <p>[1] Install the EB CLI - https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/eb-cli3-install.html</p>
 <p>[2] Deploying an Express application to Elastic Beanstalk - https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/create_deploy_nodejs_express.html</p>
 <p>[3] https://www.digitalocean.com/community/tutorials/how-to-create-a-web-server-in-node-js-with-the-http-module</p>
 
-<ul class="links-nextprev"><li>Previous: <a href="/blog/create-website/">Create 11ty static website from template</a></li><li>Next: <a href="/blog/javascript-closure/">JavaScript Closures</a></li>
+<ul class="links-nextprev"><li class="links-nextprev-prev">← Previous<br> <a href="/eleventy-base-blog/blog/create-website/">Create 11ty static website from template</a></li><li class="links-nextprev-next">Next →<br><a href="/eleventy-base-blog/blog/javascript-closure/">JavaScript Closures</a></li>
 </ul>
 
+			</heading-anchors>
 		</main>
 
-		<footer></footer>
+		<footer>
+			<p>
+				&copy; 2026 <strong>domzlab</strong>. Creative laboratory for tech and design. Built with <a href="https://www.11ty.dev/">Eleventy v3.1.6</a>.
+			</p>
+		</footer>
 
-		<!-- Current page: /blog/testing_out_elastic_beanstalk/ -->
+		<!-- This page `/blog/testing_out_elastic_beanstalk/` was built on 2026-06-27T11:35:45.484Z -->
+		<script type="module" src="/eleventy-base-blog/dist/cC8wS6ZjFU.js"></script>
 	</body>
 </html>

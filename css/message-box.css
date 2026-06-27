@@ -1,0 +1,30 @@
+/* Message Box - Premium styling */
+.message-box {
+	display: block;
+	background: var(--card-bg);
+	border: 1px solid var(--card-border);
+	border-left: 4px solid var(--accent-primary);
+	border-radius: 12px;
+	padding: 1.25rem 1.5rem;
+	margin: 1.5rem 0;
+	color: var(--text-primary);
+	font-size: 0.95rem;
+	line-height: 1.6;
+	backdrop-filter: blur(8px);
+	-webkit-backdrop-filter: blur(8px);
+}
+
+.message-box ol {
+	margin-top: 0;
+	padding-left: 1.25rem;
+}
+
+.message-box a {
+	color: var(--accent-secondary);
+	font-weight: 600;
+	text-decoration: underline;
+}
+
+.message-box a:hover {
+	color: var(--accent-primary);
+}

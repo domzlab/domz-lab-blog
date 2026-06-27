@@ -1,11 +1,11 @@
-module.exports = {
+export default {
 	title: "domzlab",
 	url: "https://domzlab.com/",
 	language: "en",
-	description: "A blog where I write about things that I am learning.",
+	description: "A hub for creative experiments, state-of-the-art designs, and technical logs.",
 	author: {
 		name: "Dominic Manthoko",
-		email: "domzlab523@gmail.com",
-		url: "https://domzlab.com/about-me/"
+		email: "contact@domzlab.com",
+		url: "https://www.linkedin.com/in/dominic-manthoko/"
 	}
 }
